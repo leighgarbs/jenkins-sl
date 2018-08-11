@@ -1,6 +1,6 @@
 #!groovy
 
-def doStage(stageName, stageBody)
+def call(stageName, stageBody)
 {
   stage (stageName)
   {
