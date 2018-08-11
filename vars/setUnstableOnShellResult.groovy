@@ -1,6 +1,6 @@
 #!groovy
 
-def setUnstableOnShellResult =
+def call =
 {
   resultShell, resultUnstable ->
   if(resultShell == resultUnstable)
@@ -8,3 +8,4 @@ def setUnstableOnShellResult =
     currentBuild.result = 'UNSTABLE'
   }
 }
+'
