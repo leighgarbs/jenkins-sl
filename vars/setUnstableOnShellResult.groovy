@@ -1,8 +1,7 @@
 #!groovy
 
-def call =
+def call(resultShell, resultUnstable)
 {
-  resultShell, resultUnstable ->
   if(resultShell == resultUnstable)
   {
     currentBuild.result = 'UNSTABLE'
