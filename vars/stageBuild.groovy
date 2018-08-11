@@ -1,6 +1,6 @@
 #!groovy
 
-def stageBuild(args)
+def call(args)
 {
   cleanUp()
 
