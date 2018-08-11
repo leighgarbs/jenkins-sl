@@ -1,6 +1,1 @@
-#!groovy
-
-class PipelineGlobals
-{
-  String something = "12.3"
-}
+something='somethingelse'
