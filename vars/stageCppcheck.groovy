@@ -1,6 +1,6 @@
 #!groovy
 
-def call()
+def call(args)
 {
   cleanUp()
 
