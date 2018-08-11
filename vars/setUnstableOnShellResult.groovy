@@ -8,4 +8,3 @@ def call =
     currentBuild.result = 'UNSTABLE'
   }
 }
-'
