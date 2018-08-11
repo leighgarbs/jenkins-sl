@@ -19,7 +19,7 @@ def call(url)
                 relativeTargetDir: 'workdir']],
     submoduleCfg: [],
     userRemoteConfigs: [[credentialsId: '',
-                       url: gitlabUrlToolbox]]]
+                       url: url]]]
 
   sh """
     git clone http://gitlab.dmz/leighgarbs/bin.git
