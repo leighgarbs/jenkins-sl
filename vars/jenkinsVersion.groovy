@@ -1,3 +1,3 @@
 #!groovy
 
-jenkinsVersion = '12.3'
+def jenkinsVersion = '12.3'
