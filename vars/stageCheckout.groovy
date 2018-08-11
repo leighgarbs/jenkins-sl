@@ -7,7 +7,7 @@ def call(url)
   checkout changelog: true, poll: true, scm: [$class: 'GitSCM',
     branches: [[name: env.BRANCH_NAME]],
     browser: [$class: 'GitLab',
-             repoUrl: url,
+             repoUrl: url[0],
              version: '$GITLAB_VERSION'],
     extensions: [[$class: 'SubmoduleOption',
                 disableSubmodules: false,
@@ -19,7 +19,7 @@ def call(url)
                 relativeTargetDir: 'workdir']],
     submoduleCfg: [],
     userRemoteConfigs: [[credentialsId: '',
-                       url: url]]]
+                       url: url[0]]]]
 
   sh """
     git clone http://gitlab.dmz/leighgarbs/bin.git
