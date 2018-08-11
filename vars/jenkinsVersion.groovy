@@ -1,1 +1,1 @@
-String jenkinsVersion = "12.3"
+def jenkinsVersion = new String("12.3")
