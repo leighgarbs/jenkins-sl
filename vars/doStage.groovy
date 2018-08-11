@@ -2,7 +2,7 @@
 
 def call(stageName, stageBody, stageArgs = [])
 {
-  echo stageBody.getClass().toString()
+  echo stageBody.getClass().getSuperclass().toString()
   stage (stageName)
   {
     gitlabCommitStatus(name: stageName)
