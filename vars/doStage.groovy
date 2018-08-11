@@ -1,12 +1,12 @@
 #!groovy
 
-def call(stageName, stageBody)
+def call(stageName, stageBody, stageArgs = [])
 {
   stage (stageName)
   {
     gitlabCommitStatus(name: stageName)
     {
-      stageBody()
+      stageBody(stageArgs)
     }
 
     if (currentBuild.result == 'UNSTABLE')
