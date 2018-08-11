@@ -1,1 +1,1 @@
-'12.3'
+String jenkinsVersion("12.3")
