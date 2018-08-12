@@ -6,4 +6,6 @@ def call(args)
     cd workdir/unittests
     ../../bin/run-unittests *.ut
   '''
+
+  saveArtifacts()
 }
