@@ -12,7 +12,7 @@ def call(args)
     extensions: [[$class: 'SubmoduleOption',
                 disableSubmodules: false,
                 parentCredentials: false,
-                recursiveSubmodules: false,
+                recursiveSubmodules: true,
                 reference: '',
                 trackingSubmodules: false],
                 [$class: 'RelativeTargetDirectory',
