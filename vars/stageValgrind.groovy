@@ -36,6 +36,4 @@ def call(args)
     unstableThresholdDefinitelyLost: '0',
     unstableThresholdInvalidReadWrite: '0',
     unstableThresholdTotal: '0'])
-
-  saveArtifacts()
 }

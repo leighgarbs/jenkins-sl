@@ -6,12 +6,27 @@ def call(stageName, stageBody, stageArgs = [])
   {
     gitlabCommitStatus(name: stageName)
     {
-      stageBody(stageArgs)
+      try
+      {
+        stageBody(stageArgs)
+      }
+      catch (err)
+      {
+        currentBuild.result = 'FAILURE'
+      }
+      finally
+      {
+        saveArtifacts()
+      }
     }
 
     if (currentBuild.result == 'UNSTABLE')
     {
       updateGitlabCommitStatus(name: stageName, state: 'failed')
+    }
+    else if (currentBuild.result == 'FAILURE')
+    {
+      error
     }
   }
 }

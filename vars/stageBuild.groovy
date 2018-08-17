@@ -12,6 +12,4 @@ def call(args)
       make -B $TARGET
     '''
   }
-
-  saveArtifacts()
 }

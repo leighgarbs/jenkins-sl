@@ -10,6 +10,4 @@ def call(args)
     scan-build -o clangScanBuildReports -v -v --use-cc clang \
       --use-analyzer=/usr/bin/clang make -B
   '''
-
-  saveArtifacts()
 }

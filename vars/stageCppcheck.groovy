@@ -22,6 +22,4 @@ def call(args)
                     pattern: 'cppcheck-result.xml',
                     severityNoCategory: false
   }
-
-  saveArtifacts()
 }
