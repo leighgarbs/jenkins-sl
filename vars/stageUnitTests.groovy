@@ -2,8 +2,5 @@
 
 def call(args)
 {
-  sh '''
-    cd workdir/unittests
-    ../../bin/run-unittests *.ut
-  '''
+  sh 'bin/run-unittests workdir/unittests/*.ut'
 }
