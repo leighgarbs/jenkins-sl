@@ -7,7 +7,7 @@ def call(args)
   dir('workdir')
   {
     def shellReturnStatus = sh returnStatus: true, script: '''
-      ../bin/run-cppcheck -J --suppress=unusedFunction .
+      ../bin/run-cppcheck -J .
     '''
 
     setUnstableOnShellResult(shellReturnStatus, 1)
