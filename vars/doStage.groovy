@@ -20,13 +20,15 @@ def call(stageName, stageBody, stageArgs = [])
       }
     }
 
-    if (currentBuild.result == 'UNSTABLE')
+    if (currentBuild.result == 'UNSTABLE' ||
+        currentBuild.result == 'FAILURE')
     {
       updateGitlabCommitStatus(name: stageName, state: 'failed')
-    }
-    else if (currentBuild.result == 'FAILURE')
-    {
-      error
+
+      if (currentBuild.result == 'FAILURE')
+      {
+        error
+      }
     }
   }
 }
