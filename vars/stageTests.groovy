@@ -2,5 +2,5 @@
 
 def call(args)
 {
-  sh 'ctest workdir'
+  sh 'cd workdir; ctest .'
 }
