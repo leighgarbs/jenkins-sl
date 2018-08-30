@@ -6,12 +6,12 @@ def call(args)
 
   dir('workdir')
   {
-    #withEnv(['CPPCHECK_ARGS=' + args[0]])
-    #{
+    //withEnv(['CPPCHECK_ARGS=' + args[0]])
+    //{
       def shellReturnStatus = sh returnStatus: true, script: '''
         ../bin/run-cppcheck -J .
       '''
-    #}
+    //}
 
     setUnstableOnShellResult(shellReturnStatus, 1)
 
