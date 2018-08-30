@@ -6,9 +6,12 @@ def call(args)
 
   dir('workdir')
   {
-    def shellReturnStatus = sh returnStatus: true, script: '''
-      ../bin/run-cppcheck -J .
-    '''
+    withEnv(['CPPCHECK_ARGS=' + args[0]])
+    {
+      def shellReturnStatus = sh returnStatus: true, script: '''
+        ../bin/run-cppcheck -J $CPPCHECK_ARGS.
+      '''
+    }
 
     setUnstableOnShellResult(shellReturnStatus, 1)
 
