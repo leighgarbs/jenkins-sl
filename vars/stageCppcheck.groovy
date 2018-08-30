@@ -6,7 +6,13 @@ def call(args)
 
   dir('workdir')
   {
-    withEnv(['CPPCHECK_ARGS=' + args[0]])
+    cppcheck_args = args[0]
+    if (cppcheck_args == null)
+    {
+      cppcheck_args = ""
+    }
+
+    withEnv(['CPPCHECK_ARGS=' + cppcheck_args])
     {
       def shellReturnStatus = sh returnStatus: true, script: '''
         ../bin/run-cppcheck -J $CPPCHECK_ARGS .
