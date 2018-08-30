@@ -9,7 +9,7 @@ def call(args)
     withEnv(['CPPCHECK_ARGS=' + args[0]])
     {
       def shellReturnStatus = sh returnStatus: true, script: '''
-        ../bin/run-cppcheck -J $CPPCHECK_ARGS .
+        ../bin/run-cppcheck -J .
       '''
     }
 
