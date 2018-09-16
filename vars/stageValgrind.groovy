@@ -7,7 +7,7 @@ def call(args)
     excludePattern: '',
     generateSuppressions: false,
     ignoreExitCode: false,
-    includePattern: 'workdir/tests/*.ut',
+    includePattern: 'workdir/tests/*Test',
     outputDirectory: 'workdir/tests',
     outputFileEnding: '.valgrind.xml',
     programOptions: '',
