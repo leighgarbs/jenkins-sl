@@ -6,7 +6,7 @@ def call(args)
     childSilentAfterFork: true,
     excludePattern: '',
     generateSuppressions: false,
-    ignoreExitCode: false,
+    ignoreExitCode: true,
     includePattern: 'workdir/tests/*Test',
     outputDirectory: 'workdir/tests',
     outputFileEnding: '.valgrind.xml',
