@@ -6,9 +6,9 @@ def call(args)
     childSilentAfterFork: true,
     excludePattern: '',
     generateSuppressions: false,
-    ignoreExitCode: false,
-    includePattern: 'workdir/unittests/*.ut',
-    outputDirectory: 'workdir/unittests',
+    ignoreExitCode: true,
+    includePattern: 'workdir/tests/*_test',
+    outputDirectory: 'workdir/tests',
     outputFileEnding: '.valgrind.xml',
     programOptions: '',
     removeOldReports: false,
@@ -21,7 +21,7 @@ def call(args)
     traceChildren: false,
     valgrindExecutable: '',
     valgrindOptions: '',
-    workingDirectory: 'workdir/unittests'])
+    workingDirectory: 'workdir/tests'])
 
   step([$class: 'ValgrindPublisher',
     failBuildOnInvalidReports: true,
@@ -29,7 +29,7 @@ def call(args)
     failThresholdDefinitelyLost: '',
     failThresholdInvalidReadWrite: '',
     failThresholdTotal: '',
-    pattern: 'workdir/unittests/*.valgrind.xml',
+    pattern: 'workdir/tests/*.valgrind.xml',
     publishResultsForAbortedBuilds: false,
     publishResultsForFailedBuilds: false,
     sourceSubstitutionPaths: '',
