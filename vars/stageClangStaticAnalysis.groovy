@@ -8,6 +8,6 @@ def call(args)
     cd workdir
     scan-build ../bin/run-cmake --debug .
     scan-build -o clangScanBuildReports -v -v --use-cc clang \
-      --use-analyzer=/usr/bin/clang make -B
+      --use-analyzer=/usr/bin/clang make -B tests
   '''
 }
