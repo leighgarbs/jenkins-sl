@@ -24,6 +24,11 @@ def call(name, body, args = [])
         currentBuild.result == 'FAILURE')
     {
       updateGitlabCommitStatus(name: name, state: 'failed')
+
+      if (currentBuild.result == 'FAILURE')
+      {
+        error('Current build result is FAILURE')
+      }
     }
   }
 }
