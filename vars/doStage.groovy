@@ -4,30 +4,33 @@ def call(name, body, args = [])
 {
   stage (name)
   {
-    gitlabCommitStatus(name: name)
+    timestamps
     {
-      try
+      gitlabCommitStatus(name: name)
       {
-        body(args)
+        try
+        {
+          body(args)
+        }
+        catch (err)
+        {
+          currentBuild.result = 'FAILURE'
+        }
+        finally
+        {
+          saveArtifacts()
+        }
       }
-      catch (err)
-      {
-        currentBuild.result = 'FAILURE'
-      }
-      finally
-      {
-        saveArtifacts()
-      }
-    }
 
-    if (currentBuild.result == 'UNSTABLE' ||
-        currentBuild.result == 'FAILURE')
-    {
-      updateGitlabCommitStatus(name: name, state: 'failed')
-
-      if (currentBuild.result == 'FAILURE')
+      if (currentBuild.result == 'UNSTABLE' ||
+          currentBuild.result == 'FAILURE')
       {
-        error('Current build result is FAILURE')
+        updateGitlabCommitStatus(name: name, state: 'failed')
+
+        if (currentBuild.result == 'FAILURE')
+        {
+          error('Build result is FAILURE')
+        }
       }
     }
   }
