@@ -1,14 +1,14 @@
 #!groovy
 
-def call(stageName, stageBody, stageArgs = [])
+def call(name, body, args = [])
 {
-  stage (stageName)
+  stage (name)
   {
-    gitlabCommitStatus(name: stageName)
+    gitlabCommitStatus(name: name)
     {
       try
       {
-        stageBody(stageArgs)
+        body(args)
       }
       catch (err)
       {
@@ -23,12 +23,7 @@ def call(stageName, stageBody, stageArgs = [])
     if (currentBuild.result == 'UNSTABLE' ||
         currentBuild.result == 'FAILURE')
     {
-      updateGitlabCommitStatus(name: stageName, state: 'failed')
-
-      if (currentBuild.result == 'FAILURE')
-      {
-        error
-      }
+      updateGitlabCommitStatus(name: name, state: 'failed')
     }
   }
 }
