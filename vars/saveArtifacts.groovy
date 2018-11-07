@@ -2,5 +2,5 @@
 
 def call()
 {
-  runScript('saveArtifacts')
+  runResourceScript('saveArtifacts')
 }

@@ -2,5 +2,5 @@
 
 def call()
 {
-  runScript('cleanUp')
+  runResourceScript('cleanUp')
 }
