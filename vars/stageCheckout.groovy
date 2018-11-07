@@ -22,7 +22,5 @@ def call(args)
                          url:           args[0]]]]
 
   // This repository has some scripts we need for later stages
-  sh """
-    git clone http://gitlab.dmz/leighgarbs/bin.git
-  """
+  sh 'git clone http://gitlab.dmz/leighgarbs/bin.git'
 }
