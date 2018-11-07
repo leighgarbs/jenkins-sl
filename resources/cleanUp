@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd workdir
+git clean -x -d -f

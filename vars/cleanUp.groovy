@@ -2,8 +2,6 @@
 
 def call()
 {
-  sh '''
-    cd workdir
-    git clean -x -d -f
-  '''
+  def script = libraryResource 'cleanUp'
+  sh returnStatus: true, script: script
 }
