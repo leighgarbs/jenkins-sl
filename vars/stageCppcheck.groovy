@@ -2,7 +2,7 @@
 
 def call(args)
 {
-  cleanUp()
+  runResourceScript('cleanUp')
 
   dir('workdir')
   {
