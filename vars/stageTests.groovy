@@ -2,5 +2,5 @@
 
 def call(args)
 {
-  sh 'cd workdir; ctest .'
+  runResourceScript('stageTests')
 }

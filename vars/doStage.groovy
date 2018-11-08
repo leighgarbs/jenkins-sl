@@ -1,16 +1,18 @@
 #!groovy
 
-def call(name, body, args = [])
+def call(stageName, stageBody, stageArgs = [])
 {
-  stage (name)
+  stage (stageName)
   {
     timestamps
     {
-      gitlabCommitStatus(name: name)
+      def returnCode = 0
+
+      gitlabCommitStatus(name: stageName)
       {
         try
         {
-          body(args)
+          returnCode = stageBody(stageArgs)
         }
         catch (err)
         {
@@ -27,7 +29,7 @@ def call(name, body, args = [])
           currentBuild.result == 'FAILURE')
       {
         // Gitlab doesn't have a commit status for unstable
-        updateGitlabCommitStatus(name: name, state: 'failed')
+        updateGitlabCommitStatus(name: stageName, state: 'failed')
 
         // Stop the entire pipeline and report an error if the build is set to
         // FAILURE.  No sense proceeding when we know now there is a problem to
@@ -35,9 +37,11 @@ def call(name, body, args = [])
         // parallelized.
         if (currentBuild.result == 'FAILURE')
         {
-          error('Build result is FAILURE')
+          error("Stage \"" + stageName + "\" exited unsuccessfully")
         }
       }
+
+      return returnCode
     }
   }
 }
