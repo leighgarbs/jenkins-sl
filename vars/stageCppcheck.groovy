@@ -2,7 +2,9 @@
 
 def call(args)
 {
-  cleanUp()
+  runResourceScript('cleanUp')
+
+  def returnCode = 0
 
   dir('workdir')
   {
@@ -14,21 +16,24 @@ def call(args)
 
     withEnv(['CPPCHECK_ARGS=' + cppcheck_args])
     {
-      def shellReturnStatus = sh returnStatus: true, script: '''
-        ../bin/run-cppcheck -J $CPPCHECK_ARGS .
-      '''
+      returnCode = runResourceScript('stageCppcheck')
 
-      setUnstableOnShellResult(shellReturnStatus, 1)
+      if(returnCode == 1)
+      {
+        currentBuild.result = 'UNSTABLE'
+      }
 
-      publishCppcheck displayAllErrors: false,
-                      displayErrorSeverity: true,
-                      displayNoCategorySeverity: true,
+      publishCppcheck displayAllErrors:           false,
+                      displayErrorSeverity:       true,
+                      displayNoCategorySeverity:  true,
                       displayPerformanceSeverity: true,
                       displayPortabilitySeverity: true,
-                      displayStyleSeverity: true,
-                      displayWarningSeverity: true,
-                      pattern: 'cppcheck-result.xml',
-                      severityNoCategory: false
+                      displayStyleSeverity:       true,
+                      displayWarningSeverity:     true,
+                      pattern:                    'cppcheck-result.xml',
+                      severityNoCategory:         false
     }
   }
+
+  return returnCode
 }

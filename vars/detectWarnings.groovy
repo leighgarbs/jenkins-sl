@@ -2,14 +2,14 @@
 
 def call(parser)
 {
-  warnings canComputeNew: false,
+  warnings canComputeNew:           false,
            canResolveRelativePaths: false,
-           categoriesPattern: '',
-           consoleParsers: [[parserName: parser]],
-           defaultEncoding: '',
-           excludePattern: '',
-           healthy: '',
-           includePattern: '',
-           messagesPattern: '',
-           unHealthy: ''
+           categoriesPattern:       '',
+           consoleParsers:          [[parserName: parser]],
+           defaultEncoding:         '',
+           excludePattern:          '',
+           healthy:                 '',
+           includePattern:          '',
+           messagesPattern:         '',
+           unHealthy:               ''
 }
