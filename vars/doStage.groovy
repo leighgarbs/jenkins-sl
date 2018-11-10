@@ -12,7 +12,7 @@ def call(stageName, stageBody, stageArgs = [])
         {
           if (stageBody(stageArgs) != 0)
           {
-            currentBuild.result == 'FAILURE'
+            currentBuild.result = 'FAILURE'
           }
         }
         catch (err)
