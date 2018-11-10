@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 cd workdir
 scan-build ../bin/run-cmake --debug .
