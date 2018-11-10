@@ -6,6 +6,6 @@ def call(args)
 
   withEnv(['BUILD_TYPE=' + args[0], 'TARGET=' + args[1]])
   {
-    runResourceScript('stageBuild')
+    return runResourceScript('stageBuild')
   }
 }
