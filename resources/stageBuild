@@ -2,4 +2,4 @@
 
 cd workdir
 ../bin/run-cmake --$BUILD_TYPE .
-make -B $TARGET || echo FAIL
+make -B $TARGET
