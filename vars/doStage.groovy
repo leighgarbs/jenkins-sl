@@ -6,11 +6,15 @@ def call(stageName, stageBody, stageArgs = [])
   {
     timestamps
     {
+      def returnCode = 0
+
       gitlabCommitStatus(name: stageName)
       {
         try
         {
-          if (stageBody(stageArgs) != 0)
+          returnCode = stageBody(stageArgs)
+
+          if (returnCode != 0)
           {
             currentBuild.result = 'FAILURE'
           }
@@ -41,6 +45,8 @@ def call(stageName, stageBody, stageArgs = [])
           error("Stage \"" + stageName + "\" exited unsuccessfully")
         }
       }
+
+      return returnCode
     }
   }
 }
