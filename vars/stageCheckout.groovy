@@ -21,5 +21,5 @@ def call(args)
     userRemoteConfigs: [[credentialsId: '', url: args[0]]]]
 
   // This repository has some scripts we need for later stages
-  sh 'git clone http://gitlab.dmz/leighgarbs/bin.git'
+  sh returnStatus: true, script: 'git clone http://gitlab.dmz/leighgarbs/bin.git'
 }
