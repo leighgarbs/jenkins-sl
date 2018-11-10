@@ -39,4 +39,7 @@ def call(args)
     unstableThresholdDefinitelyLost:   '0',
     unstableThresholdInvalidReadWrite: '0',
     unstableThresholdTotal:            '0'])
+
+  // This stage can't normally fail
+  return 0
 }
