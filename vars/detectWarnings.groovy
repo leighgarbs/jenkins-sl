@@ -2,7 +2,7 @@
 
 def call(parser)
 {
-  warnings canComputeNew:           false,
+  warnings canComputeNew:           true,
            canResolveRelativePaths: false,
            categoriesPattern:       '',
            consoleParsers:          [[parserName: parser]],
@@ -12,4 +12,7 @@ def call(parser)
            includePattern:          '',
            messagesPattern:         '',
            unHealthy:               ''
+
+  // This can't normally fail
+  return 0
 }
