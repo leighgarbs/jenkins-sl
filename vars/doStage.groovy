@@ -13,11 +13,6 @@ def call(stageName, stageBody, stageArgs = [])
         try
         {
           returnCode = stageBody(stageArgs)
-
-          if (returnCode != 0)
-          {
-            currentBuild.result = 'FAILURE'
-          }
         }
         catch (err)
         {
@@ -28,10 +23,15 @@ def call(stageName, stageBody, stageArgs = [])
         {
           runResourceScript('saveArtifacts')
         }
+
+        // A non-zero stage return code fails the build
+        if (returnCode != 0)
+        {
+          currentBuild.result = 'FAILURE'
+        }
       }
 
-      if (currentBuild.result == 'UNSTABLE' ||
-          currentBuild.result == 'FAILURE')
+      if (currentBuild.result == 'UNSTABLE' || currentBuild.result == 'FAILURE')
       {
         // Gitlab doesn't have a commit status for unstable
         updateGitlabCommitStatus(name: stageName, state: 'failed')
