@@ -3,3 +3,4 @@
 cd workdir
 ../bin/run-cmake --$BUILD_TYPE .
 make -B $TARGET
+exit(1)
