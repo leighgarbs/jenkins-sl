@@ -2,5 +2,4 @@
 
 cd workdir
 ../bin/run-cmake --$BUILD_TYPE .
-make -B $TARGET
-exit(1)
+make -B $TARGET || echo FAIL
