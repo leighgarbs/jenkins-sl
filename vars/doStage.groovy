@@ -25,6 +25,11 @@ def call(stageName, stageBody, stageArgs = [])
         }
       }
 
+      if (returnCode != 0)
+      {
+        currentBuild.result == 'FAILURE'
+      }
+
       if (currentBuild.result == 'UNSTABLE' ||
           currentBuild.result == 'FAILURE')
       {
