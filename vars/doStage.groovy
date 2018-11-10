@@ -6,14 +6,14 @@ def call(stageName, stageBody, stageArgs = [])
   {
     timestamps
     {
-      def returnCode = 0
-
       gitlabCommitStatus(name: stageName)
       {
         try
         {
-          returnCode = stageBody(stageArgs)
-          print('-------------->' + returnCode)
+          if (stageBody(stageArgs) != 0)
+          {
+            currentBuild.result == 'FAILURE'
+          }
         }
         catch (err)
         {
@@ -24,11 +24,6 @@ def call(stageName, stageBody, stageArgs = [])
         {
           runResourceScript('saveArtifacts')
         }
-      }
-
-      if (returnCode != 0)
-      {
-        currentBuild.result == 'FAILURE'
       }
 
       if (currentBuild.result == 'UNSTABLE' ||
@@ -46,8 +41,6 @@ def call(stageName, stageBody, stageArgs = [])
           error("Stage \"" + stageName + "\" exited unsuccessfully")
         }
       }
-
-      return returnCode
     }
   }
 }
