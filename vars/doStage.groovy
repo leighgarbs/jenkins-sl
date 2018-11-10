@@ -22,7 +22,7 @@ def call(stageName, stageBody, stageArgs = [])
         }
         finally
         {
-          saveArtifacts()
+          runResourceScript('saveArtifacts')
         }
       }
 
