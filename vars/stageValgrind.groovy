@@ -27,13 +27,12 @@ def call(args)
 
     // Post the Valgrind analysis results to Jenkins
     step([$class: 'ValgrindPublisher',
-          failBuildOnInvalidReports:         false,
+          failBuildOnInvalidReports:         true,
           failBuildOnMissingReports:         true,
           failThresholdDefinitelyLost:       '',
           failThresholdInvalidReadWrite:     '',
           failThresholdTotal:                '',
-          pattern:
-          'workdir/Testing/Temporary/MemoryChecker.*.log',
+          pattern:                           'workdir/valgrind.xml',
           publishResultsForAbortedBuilds:    false,
           publishResultsForFailedBuilds:     false,
           sourceSubstitutionPaths:           '',
