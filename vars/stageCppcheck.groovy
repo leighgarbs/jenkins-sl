@@ -5,18 +5,19 @@ def call(args)
     // Go back to a pristine checkout
     runResourceScript('cleanUp')
 
+    // Return code from the stageCppcheck script will be written into here
     def returnCode = 0
+
+    def cppcheck_args = args[0]
+    if (cppcheck_args == null)
+    {
+        cppcheck_args = ""
+    }
 
     // stageCppcheck script is written to work out of the current directory, and
     // all the code is in STAGE_DIR, so go there
     dir(STAGE_DIR)
     {
-        cppcheck_args = args[0]
-        if (cppcheck_args == null)
-        {
-            cppcheck_args = ""
-        }
-
         withEnv(['CPPCHECK_ARGS=' + cppcheck_args])
         {
             returnCode = runResourceScript('stageCppcheck')
