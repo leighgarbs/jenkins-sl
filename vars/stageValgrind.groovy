@@ -33,7 +33,7 @@ def call(args)
           failThresholdInvalidReadWrite:     '',
           failThresholdTotal:                '',
           pattern:
-          'Testing/Temporary/MemoryChecker.*.log',
+          'workdir/Testing/Temporary/MemoryChecker.*.log',
           publishResultsForAbortedBuilds:    false,
           publishResultsForFailedBuilds:     false,
           sourceSubstitutionPaths:           '',
