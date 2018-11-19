@@ -32,7 +32,7 @@ def call(args)
           failThresholdDefinitelyLost:       '',
           failThresholdInvalidReadWrite:     '',
           failThresholdTotal:                '',
-          pattern:                           'workdir/valgrind.xml',
+          pattern:                           'workdir/valgrind.*.xml',
           publishResultsForAbortedBuilds:    false,
           publishResultsForFailedBuilds:     false,
           sourceSubstitutionPaths:           '',
