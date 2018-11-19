@@ -16,7 +16,7 @@ def call(args)
           failThresholdDefinitelyLost:       '',
           failThresholdInvalidReadWrite:     '',
           failThresholdTotal:                '',
-          pattern:                           'workdir/valgrind.*.xml',
+          pattern:                           STAGE_DIR + '/valgrind.*.xml',
           publishResultsForAbortedBuilds:    false,
           publishResultsForFailedBuilds:     false,
           sourceSubstitutionPaths:           '',
