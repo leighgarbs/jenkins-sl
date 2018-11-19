@@ -32,7 +32,8 @@ def call(args)
           failThresholdDefinitelyLost:       '',
           failThresholdInvalidReadWrite:     '',
           failThresholdTotal:                '',
-          pattern:                           'workdir/tests/*.valgrind.xml',
+          pattern:
+          'Testing/Temporary/MemoryChecker.*.log',
           publishResultsForAbortedBuilds:    false,
           publishResultsForFailedBuilds:     false,
           sourceSubstitutionPaths:           '',
