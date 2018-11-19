@@ -3,5 +3,5 @@
 # All stages should change directory to here
 cd $STAGE_DIR
 
-../bin/run-cmake --$BUILD_TYPE .
-make -B $TARGET
+# CTest is configured to run valgrind in this way
+ctest -T memcheck

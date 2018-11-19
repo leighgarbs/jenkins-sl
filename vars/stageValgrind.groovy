@@ -2,44 +2,28 @@
 
 def call(args)
 {
-  // Run Valgrind.  Not sure if this is any better than just running Valgrind in
-  // the shell.
-  step([$class: 'ValgrindBuilder',
-    childSilentAfterFork: true,
-    excludePattern:       '',
-    generateSuppressions: false,
-    ignoreExitCode:       true,
-    includePattern:       'workdir/tests/*_test',
-    outputDirectory:      'workdir/tests',
-    outputFileEnding:     '.valgrind.xml',
-    programOptions:       '',
-    removeOldReports:     false,
-    suppressionFiles:     '',
-    tool: [$class: 'ValgrindToolMemcheck',
-          leakCheckLevel:       'full',
-          showReachable:        false,
-          trackOrigins:         true,
-          undefinedValueErrors: true],
-    traceChildren:      false,
-    valgrindExecutable: '',
-    valgrindOptions:    '',
-    workingDirectory:   'workdir/tests'])
+    // Purposefully don't pay attention to the valgrind return code here.  The
+    // ValgrindPublisher step below will take care of failing the build if it's
+    // necessary to do so.
+    runResourceScript('stageValgrind')
 
-  // Post the Valgrind analysis results to Jenkins
-  step([$class: 'ValgrindPublisher',
-    failBuildOnInvalidReports:         true,
-    failBuildOnMissingReports:         true,
-    failThresholdDefinitelyLost:       '',
-    failThresholdInvalidReadWrite:     '',
-    failThresholdTotal:                '',
-    pattern:                           'workdir/tests/*.valgrind.xml',
-    publishResultsForAbortedBuilds:    false,
-    publishResultsForFailedBuilds:     false,
-    sourceSubstitutionPaths:           '',
-    unstableThresholdDefinitelyLost:   '0',
-    unstableThresholdInvalidReadWrite: '0',
-    unstableThresholdTotal:            '0'])
+    // Post the Valgrind analysis results to Jenkins.  This will fail the build
+    // if there are no Valgrind reports or if the reports are "invalid",
+    // whatever that means.
+    step([$class: 'ValgrindPublisher',
+          failBuildOnInvalidReports:         true,
+          failBuildOnMissingReports:         true,
+          failThresholdDefinitelyLost:       '',
+          failThresholdInvalidReadWrite:     '',
+          failThresholdTotal:                '',
+          pattern:                           STAGE_DIR + '/valgrind.*.xml',
+          publishResultsForAbortedBuilds:    false,
+          publishResultsForFailedBuilds:     false,
+          sourceSubstitutionPaths:           '',
+          unstableThresholdDefinitelyLost:   '0',
+          unstableThresholdInvalidReadWrite: '0',
+          unstableThresholdTotal:            '0'])
 
-  // This stage can't normally fail
-  return 0
+    // This stage can't normally fail
+    return 0
 }
