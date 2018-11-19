@@ -27,8 +27,8 @@ def call(args)
 
     // Post the Valgrind analysis results to Jenkins
     step([$class: 'ValgrindPublisher',
-          failBuildOnInvalidReports:         true,
-          failBuildOnMissingReports:         true,
+          failBuildOnInvalidReports:         false,
+          failBuildOnMissingReports:         false,
           failThresholdDefinitelyLost:       '',
           failThresholdInvalidReadWrite:     '',
           failThresholdTotal:                '',
