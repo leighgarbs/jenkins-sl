@@ -39,7 +39,7 @@ def call(args)
     displayPortabilitySeverity:       true,
     displayStyleSeverity:             true,
     displayWarningSeverity:           true,
-    pattern:                          'cppcheck.xml',
+    pattern:                          STAGE_DIR + '/cppcheck.xml',
     severityNoCategory:               false
 
     return returnCode
