@@ -22,26 +22,26 @@ def call(args)
         {
             returnCode = runResourceScript('stageCppcheck')
         }
-    }
 
-    // The cppcheck stage returns non-zero if it finds an issue with a severity
-    // of either warning or error
-    if(returnCode == 1)
-    {
-        print('Setting build result to UNSTABLE')
-        currentBuild.result = 'UNSTABLE'
-    }
+        // The cppcheck stage returns non-zero if it finds an issue with a
+        // severity of either warning or error
+        if(returnCode == 1)
+        {
+            print('Setting build result to UNSTABLE')
+            currentBuild.result = 'UNSTABLE'
+        }
 
-    // Publish all the results to the Jenkins plugin
-    publishCppcheck displayAllErrors: false,
-    displayErrorSeverity:             true,
-    displayNoCategorySeverity:        true,
-    displayPerformanceSeverity:       true,
-    displayPortabilitySeverity:       true,
-    displayStyleSeverity:             true,
-    displayWarningSeverity:           true,
-    pattern:                          STAGE_DIR + '/cppcheck.xml',
-    severityNoCategory:               false
+        // Publish all the results to the Jenkins plugin.
+        publishCppcheck displayAllErrors: false,
+        displayErrorSeverity:             true,
+        displayNoCategorySeverity:        true,
+        displayPerformanceSeverity:       true,
+        displayPortabilitySeverity:       true,
+        displayStyleSeverity:             true,
+        displayWarningSeverity:           true,
+        pattern:                          'cppcheck.xml',
+        severityNoCategory:               false
+    }
 
     return returnCode
 }
