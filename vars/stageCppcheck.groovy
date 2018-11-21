@@ -5,9 +5,6 @@ def call(args)
     // Go back to a pristine checkout
     runResourceScript('cleanUp')
 
-    // Return code from the stageCppcheck script will be written into here
-    def returnCode = 0
-
     def cppcheck_args = args[0]
     if (cppcheck_args == null)
     {
@@ -20,28 +17,28 @@ def call(args)
     {
         withEnv(['CPPCHECK_ARGS=' + cppcheck_args])
         {
-            returnCode = runResourceScript('stageCppcheck')
-        }
-
-        // The cppcheck stage returns non-zero if it finds an issue with a
-        // severity of either warning or error
-        if(returnCode == 1)
-        {
-            print('Setting build result to UNSTABLE')
-            currentBuild.result = 'UNSTABLE'
+            // Purposefully ignore the error code.  Only the analysis of the
+            // results performed by publishCppcheck should affect build status.
+            runResourceScript('stageCppcheck')
         }
 
         // Publish all the results to the Jenkins plugin.
         publishCppcheck displayAllErrors: false,
         displayErrorSeverity:             true,
-        displayNoCategorySeverity:        true,
         displayPerformanceSeverity:       true,
         displayPortabilitySeverity:       true,
         displayStyleSeverity:             true,
         displayWarningSeverity:           true,
+        failureThreshold:                 '0',
+        severityInformation:              false,
         pattern:                          'cppcheck.xml',
-        severityNoCategory:               false
+        severityNoCategory:               false,
+        severityPerformance:              false,
+        severityPortability:              false,
+        severityStyle:                    false
     }
 
-    return returnCode
+    // The publishCppcheck action above will take care of failing the build if
+    // the build should fail due to discovered issues.
+    return 0
 }
