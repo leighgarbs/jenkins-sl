@@ -1,8 +1,8 @@
 **[jenkins-sl](https://github.com/leighgarbs/jenkins-sl)** -
-  Generalized cross-project CMake tools
-==========================================================
+  Jenkins continuous integration and testing shared library
+===========================================================
 
-For personal project use.  A Jenkins shared library defining continuous integration and testing scripts used by other projects.
+For personal project use.  A Jenkins shared library defining continuous integration and testing scripts used by other projects.  **Some bits contain content specific to my personal environment.**
 
 ## Features ##
 * Designed for use in pipelines
@@ -11,12 +11,13 @@ For personal project use.  A Jenkins shared library defining continuous integrat
   * Build (release or debug)
   * Test (CTest only)
   * Cppcheck
-  * Valgrind
-  * Clang static analzer
+  * Valgrind (via CTest memcheck)
+  * Clang static analyzer
   * Build warnings
 
 ## Goals ##
 * Windows support
+* Parallel stage execution
 
 ## Style ##
 * [Groovy-Emacs-Modes](
