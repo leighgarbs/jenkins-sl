@@ -2,7 +2,7 @@
   Jenkins continuous integration and testing shared library
 ===========================================================
 
-For personal project use.  A Jenkins shared library defining continuous integration and testing scripts used by other projects.  **Some bits contain content specific to my personal environment.**
+For personal project use.  A Jenkins shared library defining continuous integration and testing scripts used by other projects.
 
 ## Features ##
 * Designed for use in pipelines
