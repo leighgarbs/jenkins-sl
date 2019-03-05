@@ -9,7 +9,7 @@ For personal project use.  A Jenkins shared library defining continuous integrat
 * Supported stages:
   * Checkout (Git only)
   * Build (release or debug)
-  * Test (CTest only)
+  * Test ([CTest](https://gitlab.kitware.com/cmake/community/wikis/home#ctest) only)
   * Cppcheck
   * Valgrind (via CTest memcheck)
   * Clang static analyzer
