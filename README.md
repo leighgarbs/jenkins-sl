@@ -20,6 +20,4 @@ For personal project use.  A Jenkins shared library defining continuous integrat
 * Parallel stage execution
 
 ## Style ##
-* [Groovy-Emacs-Modes](
-  https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes)
-  Emacs major mode for Groovy
+* [Groovy-Emacs-Modes](https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes)Emacs major mode for Groovy
