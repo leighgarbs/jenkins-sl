@@ -10,9 +10,9 @@ For personal project use.  A Jenkins shared library defining continuous integrat
   * Checkout (Git only)
   * Build (release or debug)
   * Test ([CTest](https://gitlab.kitware.com/cmake/community/wikis/home#ctest) only)
-  * Cppcheck
-  * Valgrind (via CTest memcheck)
-  * Clang static analyzer
+  * [Cppcheck](http://cppcheck.sourceforge.net/)
+  * Valgrind (via [CTest memcheck](https://cmake.org/cmake/help/latest/manual/ctest.1.html#ctest-memcheck-step))
+  * [Clang static analyzer](https://clang-analyzer.llvm.org/)
   * Build warnings
 
 ## Goals ##
