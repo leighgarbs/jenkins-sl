@@ -5,7 +5,7 @@
 For personal project use.  A Jenkins shared library defining continuous integration and testing scripts used by other projects.
 
 ## Features ##
-* Designed for use in pipelines
+* Designed for use in [pipelines](https://jenkins.io/doc/book/pipeline/)
 * Supported stages:
   * Checkout (Git only)
   * Build (release or debug)
