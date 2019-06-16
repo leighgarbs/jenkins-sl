@@ -2,9 +2,11 @@
 
 def call(args)
 {
-  detectWarnings("GNU Make + GNU C Compiler (gcc)")
-  detectWarnings("Clang (LLVM based)")
+    recordIssues enabledForFailure: true,
+                 qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]],
+                 tools: [gcc(), clang()]
 
-  // This stage can't normally fail
-  return 0
+    // This stage should not fail for build warnings (the only
+    // failures would be internal to the analysis tools)
+    return 0
 }
