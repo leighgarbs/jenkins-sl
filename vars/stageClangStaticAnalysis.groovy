@@ -2,6 +2,6 @@
 
 def call(args)
 {
-  runResourceScript('cleanUp')
-  runResourceScript('stageClangStaticAnalysis')
+    runResourceScript('cleanUp')
+    runResourceScript('stageClangStaticAnalysis')
 }

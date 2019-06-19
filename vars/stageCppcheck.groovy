@@ -12,8 +12,8 @@ def call(args)
     }
 
     // stageCppcheck script is written to work out of the current directory, and
-    // all the code is in STAGE_DIR, so go there
-    dir(STAGE_DIR)
+    // all the code is in STAGE_DIRECTORY, so go there
+    dir(STAGE_DIRECTORY)
     {
         withEnv(['CPPCHECK_ARGS=' + cppcheck_args])
         {

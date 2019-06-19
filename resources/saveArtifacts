@@ -1,10 +1,11 @@
 #!/bin/bash -e
 
 ARTIFACTS_DIR=artifacts
-ARTIFACTS_STAGE_DIR=$ARTIFACTS_DIR/$STAGE_NAME
+ARTIFACTS_STAGE_DIRECTORY=$ARTIFACTS_DIR/$STAGE_NAME
 
 mkdir -p "$ARTIFACTS_DIR"
-rm -rf "$ARTIFACTS_STAGE_DIR"
-mkdir -p "$ARTIFACTS_STAGE_DIR"
-cd workdir
-git ls-files -o --directory | xargs -n 1 -I{} cp -a --parents {} "../$ARTIFACTS_STAGE_DIR"
+rm -rf "$ARTIFACTS_STAGE_DIRECTORY"
+mkdir -p "$ARTIFACTS_STAGE_DIRECTORY"
+
+cd $STAGE_DIRECTORY
+git ls-files -o --directory | xargs -n 1 -I{} cp -a --parents {} "../$ARTIFACTS_STAGE_DIRECTORY"

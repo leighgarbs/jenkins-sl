@@ -11,18 +11,18 @@ def call(args)
     // if there are no Valgrind reports or if the reports are "invalid",
     // whatever that means.
     step([$class: 'ValgrindPublisher',
-          failBuildOnInvalidReports:         true,
-          failBuildOnMissingReports:         true,
-          failThresholdDefinitelyLost:       '',
-          failThresholdInvalidReadWrite:     '',
-          failThresholdTotal:                '',
-          pattern:                           STAGE_DIR + '/valgrind.*.xml',
-          publishResultsForAbortedBuilds:    false,
-          publishResultsForFailedBuilds:     false,
-          sourceSubstitutionPaths:           '',
-          unstableThresholdDefinitelyLost:   '0',
+          failBuildOnInvalidReports: true,
+          failBuildOnMissingReports: true,
+          failThresholdDefinitelyLost: '',
+          failThresholdInvalidReadWrite: '',
+          failThresholdTotal: '',
+          pattern: STAGE_DIRECTORY + '/valgrind.*.xml',
+          publishResultsForAbortedBuilds: false,
+          publishResultsForFailedBuilds: false,
+          sourceSubstitutionPaths: '',
+          unstableThresholdDefinitelyLost: '0',
           unstableThresholdInvalidReadWrite: '0',
-          unstableThresholdTotal:            '0'])
+          unstableThresholdTotal: '0'])
 
     // This stage can't normally fail
     return 0
