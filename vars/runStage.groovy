@@ -41,12 +41,12 @@ def call(stageIn)
         // seems fine since we naturally want the build result to represent the
         // worst outcome.
 
-        gitlabCommitStatus(name: stageName)
+        gitlabCommitStatus(name: stageIn.name)
         {
             if (stageIn.body.call(stageIn.args) != 0)
             {
                 // Gitlab doesn't have a commit status for unstable
-                updateGitlabCommitStatus(name: stageName, state: 'failed')
+                updateGitlabCommitStatus(name: stageIn.name, state: 'failed')
 
                 error('Stage ' + stageIn.name + ' failed on ' + platformName)
             }
