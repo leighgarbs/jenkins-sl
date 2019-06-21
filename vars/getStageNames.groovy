@@ -1,12 +1,14 @@
 #!groovy
 
-def call(stages)
+def call(pipeline)
 {
-  stageNames = []
-  for (i = 0; i < stages.size(); i++)
-  {
-    stageNames.plus(stages[i].name)
-  }
+    // Will be filled in with stage names
+    stageNames = []
 
-  return stageNames
+    for (stage in pipeline)
+    {
+        stageNames.plus(stage.name)
+    }
+
+    return stageNames
 }
