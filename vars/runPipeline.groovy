@@ -31,14 +31,14 @@ def call(pipeline, platform)
         {
             timestamps
             {
-                for (def i = 0; i < pipeline.size(); i++)
+                for (stage in pipeline)
                 {
-                    print 'Running stage ' + pipeline[i].name + ' on ' +
+                    print 'Running stage ' + stage.name + ' on ' +
                         platform
 
                     // This does return a usable error code but runStage()
                     // should have dealt with handling the error already.
-                    runStage(pipeline[i])
+                    runStage(stage)
 
                     // Doing this causes this build to stop at the first stage
                     // that is unstable or has outright failed.  Otherwise the
