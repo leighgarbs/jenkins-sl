@@ -43,13 +43,17 @@ def call(stageIn)
 
         gitlabCommitStatus(name: stageIn.name)
         {
-            if (stageIn.body.call(stageIn.args) != 0)
+            def returnCode = stageIn.body.call(stageIn.args)
+
+            if (returnCode != 0)
             {
                 // Gitlab doesn't have a commit status for unstable
                 updateGitlabCommitStatus(name: stageIn.name, state: 'failed')
 
                 error('Stage ' + stageIn.name + ' failed on ' + platformName)
             }
+
+            return returnCode
         }
     }
 }
