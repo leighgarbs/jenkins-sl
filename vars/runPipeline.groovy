@@ -1,6 +1,6 @@
 #!groovy
 
-def call(pipeline, platform)
+def call(pipeline, platform, cleanWorkspace)
 {
     // We have to have a list of all the stage names before we run any of the
     // stages.  This is a little awkward since it forces us to loop
@@ -31,6 +31,12 @@ def call(pipeline, platform)
         {
             timestamps
             {
+                // Clean the workspace if that's what the user wants
+                if (cleanWorkspace)
+                {
+                    cleanWs
+                }
+
                 for (stage in pipeline)
                 {
                     print 'Running stage ' + stage.name + ' on ' +
