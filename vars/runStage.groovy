@@ -41,7 +41,8 @@ def call(stageIn)
         // seems fine since we naturally want the build result to represent the
         // worst outcome.
 
-        gitlabCommitStatus(name: stageIn.name)
+        gitlabCommitStatus(connection: gitLabConnection('gitlab.dmz'),
+                           name: stageIn.name)
         {
             def returnCode = stageIn.body.call(stageIn.args)
 
