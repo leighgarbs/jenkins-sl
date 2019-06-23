@@ -34,7 +34,7 @@ def call(pipeline, platform, cleanWorkspace)
                 // Clean the workspace if that's what the user wants
                 if (cleanWorkspace)
                 {
-                    cleanWs
+                    cleanWs()
                 }
 
                 for (stage in pipeline)
