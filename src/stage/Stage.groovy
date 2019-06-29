@@ -12,6 +12,8 @@ abstract class Stage
     // Runs the body in the appropriate workflow code context
     boolean run()
     {
+        Binding binding = new Binding()
+
         def platformName = ''
 
         if (binding.isUnix())
