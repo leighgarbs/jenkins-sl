@@ -1,6 +1,6 @@
 #!groovy
 
-class StageCheckout extends Stage
+class StageCheckout //extends Stage
 {
     ArrayList repos
 
