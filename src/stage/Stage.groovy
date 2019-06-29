@@ -1,5 +1,3 @@
-#!groovy
-
 abstract class Stage
 {
     String name
