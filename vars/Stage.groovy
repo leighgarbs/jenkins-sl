@@ -1,4 +1,4 @@
-#!groovy
+xf#!groovy
 
 // A Stage has three properties: name, body, args
 // name - The name of the stage, shows up in the header row of Stage View
@@ -7,7 +7,7 @@
 
 class Stage
 {
-    Stage(name, body, args)
+    Stage(name, body, args = [])
     {
         this.name = name
         this.body = body
