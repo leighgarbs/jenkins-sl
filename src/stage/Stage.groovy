@@ -4,11 +4,65 @@ abstract class Stage
 {
     String name
 
+    // What each stage does specifically is defined in derived classes
+    abstract boolean body()
+
     // Runs the body in the appropriate workflow code context
     boolean run()
     {
-        return false
-    }
+        def platformName = ''
 
-    abstract boolean body()
+        if (isUnix())
+        {
+            // MacOS will also cause isUnix() to return true, but we don't
+            // support automated MacOS builds yet
+            platformName = 'Linux'
+        }
+        else
+        {
+            // The only other platform we support automated builds for is
+            // Windows
+            platformName = 'Windows'
+        }
+
+        // This is where the stage name that shows up in the Jenkins GUI
+        // pipeline widget is actually set.  Stage names should be unique.  It
+        // is possible to give multiple stages the same name but the Jenkins GUI
+        // pipeline widget will bug out if this is done.
+        stage (name + ' (' + platformName + ')')
+        {
+            // We don't use only the return code from the stage to determine
+            // stage success.  Jenkins tools like the Cppcheck publisher and
+            // Valgrind publisher fail or unstable builds in a way that shows up
+            // in "currentBuild.result".  They might do this if they're
+            // configured to fail or unstable builds that were unacceptable to
+            // them in some way (for example, too many static analysis issues
+            // detected).
+
+            // If the stage body returns unsuccessfully then mark the build as
+            // failed.  There isn't a return code for unstable, but at this
+            // point currentBuild.result will be set to unstable if the stage is
+            // unstable.  By potentially setting the build result to failed here
+            // we may override an unstable build result with a failed build
+            // result.  That seems fine since we naturally want the build result
+            // to represent the worst outcome.
+
+            gitlabCommitStatus(connection: gitLabConnection('gitlab.dmz'),
+                               name:       name)
+            {
+                def returnCode = body()
+
+                if (returnCode != 0)
+                {
+                    // Gitlab doesn't have a commit status for unstable
+                    updateGitlabCommitStatus(name:  name,
+                                             state: 'failed')
+
+                    error('Stage ' + name + ' failed on ' + platformName)
+                }
+
+                return returnCode
+            }
+        }
+    }
 }
