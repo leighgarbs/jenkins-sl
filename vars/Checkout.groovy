@@ -1,5 +1,5 @@
 #!groovy
 
-class Checkout implements Stage
+class Checkout extends Stage
 {
 }
