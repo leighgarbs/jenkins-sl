@@ -5,7 +5,7 @@ package stage
 abstract class Stage
 {
     // Reference to the context the Jenkinsfile content runs in
-    def jenkinsfileContext
+    WorkflowScript wfscript
 
     String name
 
@@ -13,9 +13,9 @@ abstract class Stage
     abstract boolean body()
 
     // Constructor
-    Stage(jenkinsfileContext, String name)
+    Stage(WorkflowScript wfscript, String name)
     {
-        this.jenkinsfileContext = jenkinsfileContext
+        this.wfscript = wfscript
         this.name = name
     }
 
@@ -26,7 +26,7 @@ abstract class Stage
 
         def platformName = ''
 
-        if (jenkinsfileContext.isUnix())
+        if (wfscript.isUnix())
         {
             // MacOS will also cause isUnix() to return true, but we don't
             // support automated MacOS builds yet

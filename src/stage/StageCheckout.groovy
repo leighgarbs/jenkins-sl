@@ -7,12 +7,12 @@ class StageCheckout extends Stage
     ArrayList<String> repos
 
     // Constructor
-    StageCheckout(jenkinsfileContext,
+    StageCheckout(WorkflowScript wfscript,
                   String name = 'CHECKOUT',
                   ArrayList<String> repos = [])
     {
         // Satisfy the parent constructor
-        super(jenkinsfileContext, name)
+        super(wfscript, name)
 
         this.repos = repos
     }
