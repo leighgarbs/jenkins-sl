@@ -7,9 +7,13 @@ class StageCheckout extends Stage
     ArrayList<String> repos
 
     // Constructor
-    StageCheckout(String name = 'CHECKOUT', ArrayList<String> repos = [])
+    StageCheckout(jenkinsfileContext,
+                  String name = 'CHECKOUT',
+                  ArrayList<String> repos = [])
     {
-        this.name = name
+        // Satisfy the parent constructor
+        super(jenkinsfileContext, name)
+
         this.repos = repos
     }
 
