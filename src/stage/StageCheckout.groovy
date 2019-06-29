@@ -1,6 +1,7 @@
 #!groovy
 
-import groovy.lang.String
+//import groovy.lang.String
+import stage.Stage
 
 class StageCheckout extends Stage
 {
