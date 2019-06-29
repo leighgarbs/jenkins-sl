@@ -14,7 +14,7 @@ abstract class Stage
     {
         def platformName = ''
 
-        if (isUnix())
+        if (binding.isUnix())
         {
             // MacOS will also cause isUnix() to return true, but we don't
             // support automated MacOS builds yet
