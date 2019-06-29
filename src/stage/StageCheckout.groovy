@@ -7,7 +7,7 @@ class StageCheckout extends Stage
     ArrayList<String> repos
 
     // Constructor
-    StageCheckout(name = 'CHECKOUT', repos = [])
+    StageCheckout(String name = 'CHECKOUT', ArrayList<String> repos = [])
     {
         this.name = name
         this.repos = repos
