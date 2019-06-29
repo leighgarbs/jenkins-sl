@@ -4,7 +4,7 @@ package stage
 
 class StageCheckout extends Stage
 {
-    StageCheckout(name: 'CHECKOUT', repos: [])
+    StageCheckout(name = 'CHECKOUT', repos = [])
     {
         this.name = name
         this.repos = repos
