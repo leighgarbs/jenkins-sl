@@ -50,9 +50,8 @@ abstract class Stage
             gitlabCommitStatus(connection: gitLabConnection('gitlab.dmz'),
                                name:       name)
             {
-                def returnCode = body()
-
-                if (returnCode != 0)
+                // Do derived stage stuff
+                if (!body())
                 {
                     // Gitlab doesn't have a commit status for unstable
                     updateGitlabCommitStatus(name:  name,
@@ -61,7 +60,7 @@ abstract class Stage
                     error('Stage ' + name + ' failed on ' + platformName)
                 }
 
-                return returnCode
+                return true
             }
         }
     }
