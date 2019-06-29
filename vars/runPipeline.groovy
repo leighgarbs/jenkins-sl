@@ -44,7 +44,7 @@ def call(pipeline, platform, cleanWorkspace)
 
                     // This does return a usable error code but runStage()
                     // should have dealt with handling the error already.
-                    runStage(stage)
+                    stage.run()
 
                     // Doing this causes this build to stop at the first stage
                     // that is unstable or has outright failed.  Otherwise the
