@@ -4,6 +4,6 @@ class Checkout extends Stage
 {
     boolean body(ArrayList arguments)
     {
-        print new Binding().getProperty('currentBuild')
+        print binding.currentBuild.result
     }
 }
