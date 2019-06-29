@@ -1,4 +1,4 @@
-xf#!groovy
+#!groovy
 
 // A Stage has three properties: name, body, args
 // name - The name of the stage, shows up in the header row of Stage View
