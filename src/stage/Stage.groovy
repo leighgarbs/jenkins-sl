@@ -4,10 +4,20 @@ package stage
 
 abstract class Stage
 {
+    // Reference to the context the Jenkinsfile content runs in
+    def jenkinsfileContext
+
     String name
 
     // What each stage does specifically is defined in derived classes
     abstract boolean body()
+
+    // Constructor
+    Stage(jenkinsfileContext, String name)
+    {
+        this.jenkinsfileContext = jenkinsfileContext
+        this.name = name
+    }
 
     // Runs the body in the appropriate workflow code context
     boolean run()
@@ -16,7 +26,7 @@ abstract class Stage
 
         def platformName = ''
 
-        if (binding.isUnix())
+        if (jenkinsfileContext.isUnix())
         {
             // MacOS will also cause isUnix() to return true, but we don't
             // support automated MacOS builds yet
