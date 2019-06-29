@@ -4,5 +4,11 @@ abstract class Stage
 {
     String name
 
-    abstract boolean run()
+    // Runs the body in the appropriate workflow code context
+    boolean run()
+    {
+        return false
+    }
+
+    abstract boolean body()
 }
