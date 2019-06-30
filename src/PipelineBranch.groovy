@@ -82,7 +82,7 @@ class PipelineBranch
     private ArrayList<String> getStageNames()
     {
         // Will be filled in with stage names
-        stageNames = []
+        def stageNames = []
 
         for (stage in stages)
         {
