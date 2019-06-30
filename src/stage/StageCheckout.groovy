@@ -28,7 +28,7 @@ class StageCheckout extends Stage
         wfc.checkout changelog: true,
                      poll: true,
                      scm: [$class: 'GitSCM',
-                           branches: [[name: env.BRANCH_NAME]],
+                           branches: [[name: wfc.env.BRANCH_NAME]],
                            browser: [$class: 'GitLab',
                                      repoUrl: repo_under_test,
                                      version: '$GITLAB_VERSION'],
