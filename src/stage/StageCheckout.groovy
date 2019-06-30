@@ -20,6 +20,6 @@ class StageCheckout extends Stage
     boolean body()
     {
         print 'YAY'
-        return false
+        return true
     }
 }
