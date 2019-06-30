@@ -5,7 +5,7 @@ package stage
 abstract class Stage
 {
     // Reference to the context the Jenkinsfile content runs in
-    WorkflowScript wfscript
+    def wfscript
 
     String name
 
@@ -13,7 +13,7 @@ abstract class Stage
     abstract boolean body()
 
     // Constructor
-    Stage(WorkflowScript wfscript, String name)
+    Stage(def wfscript, String name)
     {
         this.wfscript = wfscript
         this.name = name

@@ -7,7 +7,7 @@ class StageCheckout extends Stage
     ArrayList<String> repos
 
     // Constructor
-    StageCheckout(WorkflowScript wfscript,
+    StageCheckout(def wfscript,
                   String name = 'CHECKOUT',
                   ArrayList<String> repos = [])
     {
