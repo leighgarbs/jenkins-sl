@@ -2,7 +2,7 @@
 
 import stage.Stage
 
-class Pipeline
+class PipelineBranch
 {
     // Reference to the workflow context (wfc) the Jenkinsfile content runs in.
     // I don't know how to statically define this yet so "def" will have to do.
@@ -14,7 +14,7 @@ class Pipeline
 
     ArrayList<Stage> stages
 
-    Pipeline(def wfc, String platform, ArrayList<Stage> stages)
+    PipelineBranch(def wfc, String platform, ArrayList<Stage> stages)
     {
         this.wfc = wfc
         this.platform = platform
