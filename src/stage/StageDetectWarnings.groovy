@@ -21,7 +21,8 @@ class StageDetectWarnings extends Stage
                                          unstable: true]],
                          tools: [wfc.gcc(), wfc.clang()]
 
-        wfc.scanForIssues tool: wfc.cppCheck(pattern: 'cppcheck.xml')
+        wfc.scanForIssues tool: wfc.cppCheck(pattern: wfc.STAGE_DIR +
+                                             '/cppcheck.xml')
 
         // This stage should not fail for build warnings (the only
         // failures would be internal to the analysis tools)
