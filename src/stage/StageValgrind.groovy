@@ -29,7 +29,7 @@ class StageValgrind extends Stage
                   failThresholdDefinitelyLost: '',
                   failThresholdInvalidReadWrite: '',
                   failThresholdTotal: '',
-                  pattern: STAGE_DIR + '/valgrind.*.xml',
+                  pattern: wfc.STAGE_DIR + '/valgrind.*.xml',
                   publishResultsForAbortedBuilds: false,
                   publishResultsForFailedBuilds: false,
                   sourceSubstitutionPaths: '',
@@ -37,7 +37,7 @@ class StageValgrind extends Stage
                   unstableThresholdInvalidReadWrite: '0',
                   unstableThresholdTotal: '0'])
 
-        // This stage is analysis only
+        // This stage fails by setting currentBuild, not by return code
         return true
     }
 }
