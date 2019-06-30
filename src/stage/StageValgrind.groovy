@@ -5,12 +5,10 @@ package stage
 class StageValgrind extends Stage
 {
     // Constructor
-    StageValgrind(def     wfc,
-                  String  name = 'VALGRIND',
-                  Boolean cleanWorkspace = false)
+    StageValgrind(def wfc, String name = 'VALGRIND')
     {
         // Satisfy the parent constructor
-        super(wfc, name, cleanWorkspace)
+        super(wfc, name)
     }
 
     boolean body()

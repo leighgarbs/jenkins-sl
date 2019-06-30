@@ -11,14 +11,10 @@ class StageBuild extends Stage
     String target
 
     // Constructor
-    StageBuild(def     wfc,
-               String  name,
-               String  buildType,
-               String  target,
-               Boolean cleanWorkspace = false)
+    StageBuild(def wfc, String name, String buildType, String target)
     {
         // Satisfy the parent constructor
-        super(wfc, name, cleanWorkspace)
+        super(wfc, name)
 
         this.buildType = buildType
         this.target = target

@@ -5,12 +5,10 @@ package stage
 class StageDetectWarnings extends Stage
 {
     // Constructor
-    StageDetectWarnings(def     wfc,
-                        String  name = 'DETECT WARNINGS',
-                        Boolean cleanWorkspace = false)
+    StageDetectWarnings(def wfc, String name = 'DETECT WARNINGS')
     {
         // Satisfy the parent constructor
-        super(wfc, name, cleanWorkspace)
+        super(wfc, name)
     }
 
     boolean body()
