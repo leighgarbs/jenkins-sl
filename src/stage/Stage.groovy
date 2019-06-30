@@ -6,9 +6,9 @@ abstract class Stage
 {
     // Reference to the workflow context (wfc) the Jenkinsfile content runs in.
     // I don't know how to statically define this yet so "def" will have to do.
-    def wfc
+    protected def wfc
 
-    String name
+    protected String name
     Boolean cleanWorkspace
 
     // What each stage does specifically is defined in derived classes
