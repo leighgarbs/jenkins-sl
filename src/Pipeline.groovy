@@ -30,7 +30,7 @@ class Pipeline
 
         wfc.properties([[$class: 'GitLabConnectionProperty',
                          gitLabConnection: 'gitlab.dmz'],
-                        pipelineTriggers([[$class: 'GitLabPushTrigger',
+                        wfc.pipelineTriggers([[$class: 'GitLabPushTrigger',
                                            triggerOnPush: true,
                                            triggerOnMergeRequest: true,
                                            skipWorkInProgressMergeRequest: true,
