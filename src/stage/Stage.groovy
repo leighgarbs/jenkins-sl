@@ -59,7 +59,7 @@ abstract class Stage
             // result.  That seems fine since we naturally want the build result
             // to represent the worst outcome.
 
-            gitlabCommitStatus(connection: gitLabConnection('gitlab.dmz'),
+            gitlabCommitStatus(connection: wfscript.gitLabConnection('gitlab.dmz'),
                                name:       name)
             {
                 // Do derived stage stuff
