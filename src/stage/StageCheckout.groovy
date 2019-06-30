@@ -2,6 +2,8 @@
 
 package stage
 
+import WorkflowScript
+
 class StageCheckout extends Stage
 {
     ArrayList<String> repos
