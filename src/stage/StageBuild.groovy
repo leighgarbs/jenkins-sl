@@ -23,7 +23,7 @@ class StageBuild extends Stage
 
     boolean body()
     {
-        withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
+        wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
         {
             return runResourceScript('stageBuild')
         }
