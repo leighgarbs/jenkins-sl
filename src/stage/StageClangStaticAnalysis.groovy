@@ -6,7 +6,7 @@ class StageClangStaticAnalysis extends Stage
 {
     // Constructor
     StageClangStaticAnalysis(def     wfc,
-                             String  name,
+                             String  name = 'CLANG STATIC ANALYSIS',
                              Boolean cleanWorkspace = false)
     {
         // Satisfy the parent constructor
