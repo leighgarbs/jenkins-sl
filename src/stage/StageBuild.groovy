@@ -26,9 +26,10 @@ class StageBuild extends Stage
 
     boolean body()
     {
+        // Use environment variables to get data into the resource script
         wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
         {
-            return wfc.runResourceScript('stageBuild')
+            return wfc.runResourceScript('stageBuild') == 0
         }
     }
 }
