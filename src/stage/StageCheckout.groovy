@@ -2,7 +2,7 @@
 
 package stage
 
-import jobs.scripts.WorkflowScript
+import Jenkins.jobs.scripts.WorkflowScript
 
 class StageCheckout extends Stage
 {
