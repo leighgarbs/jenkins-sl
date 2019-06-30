@@ -12,7 +12,7 @@ class PipelineBranch
     // passed to the node() Jenkins pipeline construct
     String platform
 
-    ArrayList<Stage> stages
+    private ArrayList<Stage> stages
 
     PipelineBranch(def wfc, String platform, ArrayList<Stage> stages)
     {
@@ -26,7 +26,7 @@ class PipelineBranch
         // We have to have a list of all the stage names before we run any of
         // the stages.  This is a little awkward since it forces us to loop over
         // the same list of stages twice.
-        ArrayList<String> stageNames = wfc.getStageNames(stages)
+        ArrayList<String> stageNames = getStageNames()
 
         wfc.properties([[$class: 'GitLabConnectionProperty',
                          gitLabConnection: 'gitlab.dmz'],
@@ -79,7 +79,7 @@ class PipelineBranch
         }
     }
 
-    ArrayList<String> getStageNames()
+    private ArrayList<String> getStageNames()
     {
         // Will be filled in with stage names
         stageNames = []
