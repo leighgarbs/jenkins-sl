@@ -1,5 +1,7 @@
 #!groovy
 
+import stage.Stage
+
 class Pipeline
 {
     // Reference to the workflow context (wfc) the Jenkinsfile content runs in.
