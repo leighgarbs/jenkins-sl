@@ -9,17 +9,17 @@ abstract class Stage
     def wfc
 
     String name
-    Boolean clearWorkspace
+    Boolean cleanWorkspace
 
     // What each stage does specifically is defined in derived classes
     abstract boolean body()
 
     // Constructor
-    Stage(def wfc, String name, Boolean clearWorkspace = false)
+    Stage(def wfc, String name, Boolean cleanWorkspace = false)
     {
         this.wfc = wfc
         this.name = name
-        this.clearWorkspace = clearWorkspace
+        this.cleanWorkspace = cleanWorkspace
     }
 
     // Runs the body in the appropriate workflow code context
@@ -68,9 +68,9 @@ abstract class Stage
             {
                 // Clear the workspace before doing anything meaningful, if
                 // that's what the user wants
-                if (clearWorkspace)
+                if (cleanWorkspace)
                 {
-                    wfc.clearWs()
+                    wfc.cleanWs()
                 }
 
                 // Do derived stage stuff
