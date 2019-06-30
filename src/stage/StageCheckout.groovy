@@ -10,7 +10,7 @@ class StageCheckout extends Stage
     // Constructor
     StageCheckout(def               wfc,
                   String            repo_under_test,
-                  ArrayList<String> other_repos,
+                  ArrayList<String> other_repos = [],
                   String            name = 'CHECKOUT')
     {
         // Satisfy the parent constructor
