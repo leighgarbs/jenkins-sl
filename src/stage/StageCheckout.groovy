@@ -19,7 +19,6 @@ class StageCheckout extends Stage
 
     boolean body()
     {
-        println Jenkinsfile.jfc
         return true
     }
 }
