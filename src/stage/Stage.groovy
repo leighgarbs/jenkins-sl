@@ -41,7 +41,7 @@ abstract class Stage
         // pipeline widget is actually set.  Stage names should be unique.  It
         // is possible to give multiple stages the same name but the Jenkins GUI
         // pipeline widget will bug out if this is done.
-        stage (name + ' (' + platformName + ')')
+        wfscript.stage (name + ' (' + platformName + ')')
         {
             // We don't use only the return code from the stage to determine
             // stage success.  Jenkins tools like the Cppcheck publisher and
