@@ -1,4 +1,0 @@
-#!/bin/bash -e
-
-cd $STAGE_DIR
-git clean -x -d -f
