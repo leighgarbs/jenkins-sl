@@ -8,8 +8,8 @@ class StageCheckout extends Stage
 
     // Constructor
     StageCheckout(def wfscript,
-                  String name = 'CHECKOUT',
-                  ArrayList<String> repos = [])
+                  ArrayList<String> repos,
+                  String name = 'CHECKOUT')
     {
         // Satisfy the parent constructor
         super(wfscript, name)
