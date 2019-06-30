@@ -14,11 +14,19 @@ class PipelineBranch
 
     private ArrayList<Stage> stages
 
-    PipelineBranch(def wfc, String platform, ArrayList<Stage> stages)
+    // When true this will cause this pipeline branch to clear its workspace
+    // before doing anything meaningful
+    Boolean cleanWorkspace
+
+    PipelineBranch(def wfc,
+                   String platform,
+                   ArrayList<Stage> stages,
+                   Boolean cleanWorkspace = true)
     {
         this.wfc = wfc
         this.platform = platform
         this.stages = stages
+        this.cleanWorkspace = cleanWorkspace
     }
 
     void run()
@@ -52,6 +60,13 @@ class PipelineBranch
             {
                 wfc.timestamps
                 {
+                    // Clear the workspace before doing anything meaningful, if
+                    // that's what the user wants
+                    if (cleanWorkspace)
+                    {
+                        wfc.cleanWs()
+                    }
+
                     for (stage in stages)
                     {
                         print 'Running stage ' + stage.name + ' on ' +

@@ -13,15 +13,11 @@ abstract class Stage
     // All stages have names.  This gets displayed in the Jenkins pipeline GUI.
     protected String name
 
-    // When true this will cause the stage to clear the workspace before doing
-    // anything meaningful
-    Boolean cleanWorkspace
-
     // What each stage does specifically is defined in derived classes
     abstract boolean body()
 
     // Constructor
-    Stage(def wfc, String name, Boolean cleanWorkspace = false)
+    Stage(def wfc, String name)
     {
         this.wfc = wfc
         this.name = name
@@ -72,13 +68,6 @@ abstract class Stage
                 connection: wfc.gitLabConnection('gitlab.dmz'),
                 name:       name)
             {
-                // Clear the workspace before doing anything meaningful, if
-                // that's what the user wants
-                if (cleanWorkspace)
-                {
-                    wfc.cleanWs()
-                }
-
                 // Do derived stage stuff
                 if (!body())
                 {
