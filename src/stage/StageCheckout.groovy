@@ -49,7 +49,7 @@ class StageCheckout extends Stage
         for (repo in other_repos)
         {
             // Fail if check out does not work
-            def returnCode = sh returnStatus: true, script: repo
+            def returnCode = wfc.sh returnStatus: true, script: repo
 
             if (returnCode != 0)
             {
