@@ -70,7 +70,8 @@ abstract class Stage
                     wfscript.updateGitlabCommitStatus(name:  name,
                                                       state: 'failed')
 
-                    error('Stage ' + name + ' failed on ' + platformName)
+                    wfscript.error('Stage ' + name + ' failed on ' +
+                                   platformName)
                 }
 
                 return true
