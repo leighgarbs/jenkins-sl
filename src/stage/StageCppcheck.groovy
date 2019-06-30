@@ -4,6 +4,8 @@ package stage
 
 class StageCppcheck extends Stage
 {
+    String arguments
+
     // Constructor
     StageCppcheck(def     wfc,
                   String  arguments = '',
@@ -12,6 +14,8 @@ class StageCppcheck extends Stage
     {
         // Satisfy the parent constructor
         super(wfc, name, cleanWorkspace)
+
+        this.arguments = arguments
     }
 
     boolean body()
