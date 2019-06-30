@@ -4,7 +4,10 @@ package stage
 
 class StageBuild extends Stage
 {
+    // Release, debug, etc.
     String buildType
+
+    // Make target
     String target
 
     // Constructor
@@ -25,7 +28,7 @@ class StageBuild extends Stage
     {
         wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
         {
-            return runResourceScript('stageBuild')
+            return wfc.runResourceScript('stageBuild')
         }
     }
 }
