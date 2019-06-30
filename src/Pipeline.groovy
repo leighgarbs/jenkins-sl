@@ -26,7 +26,7 @@ class Pipeline
         // We have to have a list of all the stage names before we run any of
         // the stages.  This is a little awkward since it forces us to loop over
         // the same list of stages twice.
-        stageNames = wfc.getStageNames(stages)
+        ArrayList<String> stageNames = wfc.getStageNames(stages)
 /*
     properties([[$class: 'GitLabConnectionProperty',
                  gitLabConnection: 'gitlab.dmz'],
