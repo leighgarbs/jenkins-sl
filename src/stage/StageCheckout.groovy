@@ -49,7 +49,9 @@ class StageCheckout extends Stage
         for (repo in other_repos)
         {
             // Fail if check out does not work
-            if (sh returnStatus: true, script: repo != 0)
+            def returnCode = sh returnStatus: true, script: repo
+
+            if (returnCode != 0)
             {
                 return false
             }
