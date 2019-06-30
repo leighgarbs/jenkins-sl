@@ -2,8 +2,6 @@
 
 package stage
 
-//import Jenkins.jobs.scripts.WorkflowScript
-
 class StageCheckout extends Stage
 {
     ArrayList<String> repos
