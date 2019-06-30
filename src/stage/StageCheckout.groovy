@@ -11,10 +11,11 @@ class StageCheckout extends Stage
     StageCheckout(def               wfc,
                   String            repo_under_test,
                   ArrayList<String> other_repos = [],
+                  Boolean           clearWorkspace = false,
                   String            name = 'CHECKOUT')
     {
         // Satisfy the parent constructor
-        super(wfc, name)
+        super(wfc, name, clearWorkspace)
 
         this.repo_under_test = repo_under_test
         this.other_repos = other_repos

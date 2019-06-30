@@ -4,19 +4,22 @@ package stage
 
 abstract class Stage
 {
-    // Reference to the workflow context (wfc) the Jenkinsfile content runs in
+    // Reference to the workflow context (wfc) the Jenkinsfile content runs in.
+    // I don't know how to statically define this yet so "def" will have to do.
     def wfc
 
     String name
+    Boolean clearWorkspaceBefore
 
     // What each stage does specifically is defined in derived classes
     abstract boolean body()
 
     // Constructor
-    Stage(def wfc, String name)
+    Stage(def wfc, String name, Boolean clearWorkspace = false)
     {
         this.wfc = wfc
         this.name = name
+        this.clearWorkspace = clearWorkspace
     }
 
     // Runs the body in the appropriate workflow code context
@@ -63,6 +66,13 @@ abstract class Stage
                 connection: wfc.gitLabConnection('gitlab.dmz'),
                 name:       name)
             {
+                // Clear the workspace before doing anything meaningful, if
+                // that's what the user wants
+                if (clearWorkspace)
+                {
+                    wfc.clearWs()
+                }
+
                 // Do derived stage stuff
                 if (!body())
                 {
