@@ -7,19 +7,19 @@ class StageCheckout extends Stage
     ArrayList<String> repos
 
     // Constructor
-    StageCheckout(def wfscript,
+    StageCheckout(def               wfc,
                   ArrayList<String> repos,
-                  String name = 'CHECKOUT')
+                  String            name = 'CHECKOUT')
     {
         // Satisfy the parent constructor
-        super(wfscript, name)
+        super(wfc, name)
 
         this.repos = repos
     }
 
     boolean body()
     {
-        print 'YAY'
+        println Jenkinsfile.jfc
         return true
     }
 }

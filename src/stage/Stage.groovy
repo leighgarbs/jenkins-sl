@@ -4,8 +4,8 @@ package stage
 
 abstract class Stage
 {
-    // Reference to the context the Jenkinsfile content runs in
-    def wfscript
+    // Reference to the workflow context (wfc) the Jenkinsfile content runs in
+    def wfc
 
     String name
 
@@ -13,9 +13,9 @@ abstract class Stage
     abstract boolean body()
 
     // Constructor
-    Stage(def wfscript, String name)
+    Stage(def wfc, String name)
     {
-        this.wfscript = wfscript
+        this.wfc = wfc
         this.name = name
     }
 
@@ -24,7 +24,7 @@ abstract class Stage
     {
         def platformName = ''
 
-        if (wfscript.isUnix())
+        if (wfc.isUnix())
         {
             // MacOS will also cause isUnix() to return true, but we don't
             // support automated MacOS builds yet
@@ -41,7 +41,7 @@ abstract class Stage
         // pipeline widget is actually set.  Stage names should be unique.  It
         // is possible to give multiple stages the same name but the Jenkins GUI
         // pipeline widget will bug out if this is done.
-        wfscript.stage(name + ' (' + platformName + ')')
+        wfc.stage(name + ' (' + platformName + ')')
         {
             // We don't use only the return code from the stage to determine
             // stage success.  Jenkins tools like the Cppcheck publisher and
@@ -59,19 +59,17 @@ abstract class Stage
             // result.  That seems fine since we naturally want the build result
             // to represent the worst outcome.
 
-            wfscript.gitlabCommitStatus(
-                connection: wfscript.gitLabConnection('gitlab.dmz'),
+            wfc.gitlabCommitStatus(
+                connection: wfc.gitLabConnection('gitlab.dmz'),
                 name:       name)
             {
                 // Do derived stage stuff
                 if (!body())
                 {
                     // Gitlab doesn't have a commit status for unstable
-                    wfscript.updateGitlabCommitStatus(name:  name,
-                                                      state: 'failed')
+                    wfc.updateGitlabCommitStatus(name:  name, state: 'failed')
 
-                    wfscript.error('Stage ' + name + ' failed on ' +
-                                   platformName)
+                    wfc.error('Stage ' + name + ' failed on ' + platformName)
                 }
 
                 return true
