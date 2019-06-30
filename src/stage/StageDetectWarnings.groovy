@@ -19,7 +19,7 @@ class StageDetectWarnings extends Stage
                          qualityGates: [[threshold: 1,
                                          type: 'TOTAL',
                                          unstable: true]],
-                         tools: [gcc(), clang()]
+                         tools: [wfc.gcc(), wfc.clang()]
 
         // This stage should not fail for build warnings (the only
         // failures would be internal to the analysis tools)
