@@ -2,7 +2,7 @@
 
 package stage
 
-import WorkflowScript
+import jobs.scripts.WorkflowScript
 
 class StageCheckout extends Stage
 {
