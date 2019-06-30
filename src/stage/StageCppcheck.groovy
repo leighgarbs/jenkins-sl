@@ -33,19 +33,19 @@ class StageCppcheck extends Stage
             }
 
             // Publish all the results to the Jenkins plugin.
-            publishCppcheck displayAllErrors: false,
-            displayErrorSeverity:             true,
-            displayPerformanceSeverity:       true,
-            displayPortabilitySeverity:       true,
-            displayStyleSeverity:             true,
-            displayWarningSeverity:           true,
-            failureThreshold:                 '0',
-            severityInformation:              false,
-            pattern:                          'cppcheck.xml',
-            severityNoCategory:               false,
-            severityPerformance:              false,
-            severityPortability:              false,
-            severityStyle:                    false
+            wfc.publishCppcheck displayAllErrors: false,
+                                displayErrorSeverity: true,
+                                displayPerformanceSeverity: true,
+                                displayPortabilitySeverity: true,
+                                displayStyleSeverity: true,
+                                displayWarningSeverity: true,
+                                failureThreshold: '0',
+                                severityInformation: false,
+                                pattern: 'cppcheck.xml',
+                                severityNoCategory: false,
+                                severityPerformance: false,
+                                severityPortability: false,
+                                severityStyle: false
         }
 
         // The publishCppcheck action above will take care of failing the build
