@@ -8,7 +8,11 @@ abstract class Stage
     // I don't know how to statically define this yet so "def" will have to do.
     protected def wfc
 
+    // All stages have names.  This gets displayed in the Jenkins pipeline GUI.
     protected String name
+
+    // When true this will cause the stage to clear the workspace before doing
+    // anything meaningful
     Boolean cleanWorkspace
 
     // What each stage does specifically is defined in derived classes
