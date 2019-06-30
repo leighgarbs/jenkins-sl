@@ -21,7 +21,6 @@ abstract class Stage
     {
         this.wfc = wfc
         this.name = name
-        this.cleanWorkspace = cleanWorkspace
     }
 
     // Runs the body in the appropriate workflow code context
