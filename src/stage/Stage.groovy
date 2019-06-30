@@ -9,7 +9,7 @@ abstract class Stage
     def wfc
 
     String name
-    Boolean clearWorkspaceBefore
+    Boolean clearWorkspace
 
     // What each stage does specifically is defined in derived classes
     abstract boolean body()
