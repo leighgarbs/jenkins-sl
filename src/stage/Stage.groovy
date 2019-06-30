@@ -59,15 +59,16 @@ abstract class Stage
             // result.  That seems fine since we naturally want the build result
             // to represent the worst outcome.
 
-            gitlabCommitStatus(connection: wfscript.gitLabConnection('gitlab.dmz'),
-                               name:       name)
+            wfscript.gitlabCommitStatus(
+                connection: wfscript.gitLabConnection('gitlab.dmz'),
+                name:       name)
             {
                 // Do derived stage stuff
                 if (!body())
                 {
                     // Gitlab doesn't have a commit status for unstable
-                    updateGitlabCommitStatus(name:  name,
-                                             state: 'failed')
+                    wfscript.updateGitlabCommitStatus(name:  name,
+                                                      state: 'failed')
 
                     error('Stage ' + name + ' failed on ' + platformName)
                 }
