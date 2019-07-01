@@ -68,13 +68,10 @@ abstract class Stage
                 name:       name)
             {
                 // Do derived stage stuff
-                if (!body() ||
-                    wfc.currentBuild.result == 'UNSTABLE' ||
-                    wfc.currentBuild.result == 'FAILED')
+                if (!body())
                 {
-                    // Gitlab doesn't have a commit status for unstable so call
-                    // both unstable and failed, failed
-                    wfc.updateGitlabCommitStatus(name: name, state: 'failed')
+                    // Gitlab doesn't have a commit status for unstable
+                    wfc.updateGitlabCommitStatus(name:  name, state: 'failed')
 
                     wfc.error('Stage ' + name + ' failed on ' + platformName)
                 }

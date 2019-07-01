@@ -78,16 +78,15 @@ class PipelineBranch
 
                         // Doing this causes this build to stop at the first
                         // stage that is unstable or has outright failed.
-                        // Otherwise the stage would be marked as unstable or
-                        // failed and the build would continue.  My preference
-                        // is to have the pipeline branch stop at the first
-                        // problem.
+                        // Otherwise the stage will be marked as unstable or
+                        // failed and the build will continue.
                         if (wfc.currentBuild.result == 'UNSTABLE' ||
                             wfc.currentBuild.result == 'FAILURE')
                         {
-                            wfc.error('Current build result is ' +
-                                      wfc.currentBuild.result +
-                                      ', exiting early')
+                            print 'Current build result is ' +
+                                wfc.currentBuild.result + ', exiting early'
+
+                            break
                         }
                     }
                 }
