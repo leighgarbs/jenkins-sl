@@ -31,9 +31,6 @@ class StageValgrind extends Stage
                   publishResultsForAbortedBuilds: false,
                   publishResultsForFailedBuilds: false,
                   sourceSubstitutionPaths: '',
-                  failThresholdDefinitelyLost: '0',
-                  failThresholdInvalidReadWrite: '0',
-                  failThresholdTotal: '0',
                   unstableThresholdDefinitelyLost: '0',
                   unstableThresholdInvalidReadWrite: '0',
                   unstableThresholdTotal: '0'])
