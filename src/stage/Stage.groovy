@@ -68,9 +68,7 @@ abstract class Stage
                 name:       name)
             {
                 // Do derived stage stuff
-                def stageReturn = body()
-
-                if (!stageReturn ||
+                if (!body() ||
                     wfc.currentBuild.result == 'UNSTABLE' ||
                     wfc.currentBuild.result == 'FAILED')
                 {
