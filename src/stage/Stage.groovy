@@ -77,11 +77,11 @@ abstract class Stage
 
                     wfc.error('Stage ' + name + ' failed on ' + platformName)
                 }
-
-                wfc.echo 'Stage ' + name + ' complete'
-
-                return true
             }
+
+            wfc.echo 'Stage ' + name + ' complete'
+
+            return true
         }
     }
 }
