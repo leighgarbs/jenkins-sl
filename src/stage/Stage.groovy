@@ -47,6 +47,8 @@ abstract class Stage
         // pipeline widget will bug out if this is done.
         wfc.stage(name + ' (' + platformName + ')')
         {
+            echo 'Beginning stage ' + name
+
             // We don't use only the return code from the stage to determine
             // stage success.  Jenkins tools like the Cppcheck publisher and
             // Valgrind publisher fail or unstable builds in a way that shows up
@@ -75,6 +77,8 @@ abstract class Stage
 
                     wfc.error('Stage ' + name + ' failed on ' + platformName)
                 }
+
+                echo 'Stage ' + name + ' complete'
 
                 return true
             }
