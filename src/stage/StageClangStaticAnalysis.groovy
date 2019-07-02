@@ -14,7 +14,7 @@ class StageClangStaticAnalysis extends Stage
     boolean body()
     {
         def asdf = wfc.runResourceScript('stageClangStaticAnalysis')
-        wfc.echo asdf
+        wfc.echo(asdf)
         return asdf == 0
     }
 }
