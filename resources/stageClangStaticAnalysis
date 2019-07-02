@@ -3,7 +3,7 @@
 # All stages should change directory to here
 cd $STAGE_DIR
 
-git clean -x -d -f
+make clean
 scan-build ../bin/run-cmake --debug .
 
 # Use --status-bugs to make this return 1 when issues are discovered
