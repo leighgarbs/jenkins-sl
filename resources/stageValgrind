@@ -4,4 +4,4 @@
 cd $STAGE_DIR
 
 # CTest is configured to run valgrind in this way
-ctest -j 2 -T memcheck
+ctest -T memcheck
