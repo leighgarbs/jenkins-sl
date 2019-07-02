@@ -24,16 +24,13 @@ class StageValgrind extends Stage
         wfc.step([$class: 'ValgrindPublisher',
                   failBuildOnInvalidReports: true,
                   failBuildOnMissingReports: true,
-                  failThresholdDefinitelyLost: '',
-                  failThresholdInvalidReadWrite: '',
-                  failThresholdTotal: '',
+                  failThresholdDefinitelyLost: '0',
+                  failThresholdInvalidReadWrite: '0',
+                  failThresholdTotal: '0',
                   pattern: wfc.STAGE_DIR + '/valgrind.*.xml',
                   publishResultsForAbortedBuilds: false,
                   publishResultsForFailedBuilds: false,
-                  sourceSubstitutionPaths: '',
-                  unstableThresholdDefinitelyLost: '0',
-                  unstableThresholdInvalidReadWrite: '0',
-                  unstableThresholdTotal: '0'])
+                  sourceSubstitutionPaths: ''])
 
         // This stage fails by setting currentBuild, not by return code
         return true

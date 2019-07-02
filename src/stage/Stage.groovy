@@ -71,7 +71,7 @@ abstract class Stage
                 if (!body())
                 {
                     // Gitlab doesn't have a commit status for unstable
-                    wfc.updateGitlabCommitStatus(name:  name, state: 'failed')
+                    wfc.updateGitlabCommitStatus(name: name, state: 'failed')
 
                     wfc.error('Stage ' + name + ' failed on ' + platformName)
                 }
