@@ -33,7 +33,7 @@ class StageValgrind extends Stage
                   sourceSubstitutionPaths: ''])
 
         // This stage fails by setting currentBuild, not by return code
-        return wfc.currentBuild.result == 'UNSTABLE' ||
-               wfc.currentBuild.result == 'FAILURE'
+        return !(wfc.currentBuild.result == 'UNSTABLE' ||
+                 wfc.currentBuild.result == 'FAILURE')
     }
 }
