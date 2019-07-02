@@ -5,4 +5,6 @@ cd $STAGE_DIR
 
 git clean -x -d -f
 scan-build ../bin/run-cmake --debug .
-scan-build -o clangScanBuildReports -v -v --status-bugs --use-cc clang --use-analyzer=/usr/bin/clang make -j 8 -B tests
+
+# Use --status-bugs to make this return 1 when issues are discovered
+scan-build -o clangScanBuildReports -v -v --use-cc clang --use-analyzer=/usr/bin/clang make -j 8 -B tests

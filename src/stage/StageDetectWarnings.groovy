@@ -16,7 +16,7 @@ class StageDetectWarnings extends Stage
         wfc.recordIssues enabledForFailure: true,
                          qualityGates: [[threshold: 1,
                                          type: 'TOTAL',
-                                         unstable: true]],
+                                         unstable: false]],
                          tools: [wfc.gcc(), wfc.clang()]
 
         // This stage should not fail for build warnings (the only
