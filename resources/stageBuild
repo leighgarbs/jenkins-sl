@@ -3,5 +3,6 @@
 # All stages should change directory to here
 cd $STAGE_DIR
 
+git clean -x -d -f
 ../bin/run-cmake --$BUILD_TYPE .
-make -B $TARGET
+make -j 8 -B $TARGET

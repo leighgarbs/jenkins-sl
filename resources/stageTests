@@ -4,4 +4,4 @@
 cd $STAGE_DIR
 
 # CTest is configured to run all the tests and return non-zero if any fail
-ctest .
+ctest -j 2 .
