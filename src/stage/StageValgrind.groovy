@@ -32,6 +32,8 @@ class StageValgrind extends Stage
                   publishResultsForFailedBuilds: false,
                   sourceSubstitutionPaths: ''])
 
+        print wfc.currentBuild.result
+
         // This stage fails by setting currentBuild, not by return code
         return true
     }
