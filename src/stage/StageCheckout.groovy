@@ -8,10 +8,10 @@ class StageCheckout extends Stage
     ArrayList<String> other_repos
 
     // Constructor
-    StageCheckout(def               wfc,
-                  String            repo_under_test,
+    StageCheckout(def wfc,
+                  String repo_under_test,
                   ArrayList<String> other_repos = [],
-                  String            name = 'CHECKOUT')
+                  String name = 'CHECKOUT')
     {
         // Satisfy the parent constructor
         super(wfc, name)
@@ -33,13 +33,13 @@ class StageCheckout extends Stage
                                      repoUrl: repo_under_test,
                                      version: '$GITLAB_VERSION'],
                            extensions: [[$class: 'SubmoduleOption',
-                                         disableSubmodules:   false,
-                                         parentCredentials:   false,
+                                         disableSubmodules: false,
+                                         parentCredentials: false,
                                          recursiveSubmodules: true,
-                                         reference:           '',
-                                         trackingSubmodules:  false],
+                                         reference: '',
+                                         trackingSubmodules: false],
                                         [$class: 'RelativeTargetDirectory',
-                                         relativeTargetDir: 'workdir']],
+                                         relativeTargetDir: STAGE_DIR]],
                            submoduleCfg: [],
                            userRemoteConfigs: [[credentialsId: '',
                                                 url: repo_under_test]]]
