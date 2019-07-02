@@ -18,8 +18,8 @@ class StageValgrind extends Stage
         // if it's necessary to do so.
         wfc.runResourceScript('stageValgrind')
 
-        print 'BEFORE'
-        print wfc.currentBuild.result
+        echo 'BEFORE'
+        echo wfc.currentBuild.result
 
         // Post the Valgrind analysis results to Jenkins.  This will fail the
         // build if there are no Valgrind reports or if the reports are
@@ -35,8 +35,8 @@ class StageValgrind extends Stage
                   publishResultsForFailedBuilds: false,
                   sourceSubstitutionPaths: ''])
 
-        print 'AFTER'
-        print wfc.currentBuild.result
+        echo 'AFTER'
+        echo wfc.currentBuild.result
 
         // This stage fails by setting currentBuild, not by return code
         return true
