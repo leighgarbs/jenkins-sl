@@ -21,6 +21,7 @@ class StageDetectWarnings extends Stage
 
         // This stage should not fail for build warnings (the only
         // failures would be internal to the analysis tools)
-        return true
+        return !(wfc.currentBuild.result == 'UNSTABLE' ||
+                 wfc.currentBuild.result == 'FAILURE')
     }
 }
