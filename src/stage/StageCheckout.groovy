@@ -39,7 +39,7 @@ class StageCheckout extends Stage
                                          reference: '',
                                          trackingSubmodules: false],
                                         [$class: 'RelativeTargetDirectory',
-                                         relativeTargetDir: STAGE_DIR]],
+                                         relativeTargetDir: wfc.env.STAGE_DIR]],
                            submoduleCfg: [],
                            userRemoteConfigs: [[credentialsId: '',
                                                 url: repo_under_test]]]
