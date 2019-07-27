@@ -38,7 +38,8 @@ class StageBuild extends Stage
             def returnCode = wfc.runResourceScript('stageBuild')
 
             def scanResult = wfc.scanForIssues tool: wfc.gcc(
-                pattern: 'make.' + buildType + '.out')
+                pattern: 'make.' + buildType + '.out'),
+            id: 'gcc-' + buildType
 
             //if (publishIssues)
             //{
