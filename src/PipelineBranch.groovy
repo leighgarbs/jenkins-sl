@@ -72,7 +72,8 @@ class PipelineBranch
                     script: 'git clone http://gitlab.dmz/leighgarbs/bin.git'
                     if (returnCode != 0)
                     {
-                        error('Cannot checkout bin repository, exiting early')
+                        wfc.error(
+                            'Cannot checkout bin repository, exiting early')
                     }
 
                     for (stage in stages)
