@@ -43,7 +43,7 @@ class StageBuild extends Stage
             //if (publishIssues)
             //{
                 // Publish build warnings
-            wfc.publishIssues issues: scanResult,
+            wfc.publishIssues issues: [scanResult],
             enabledForFailure: true,
             qualityGates: [[threshold: 1,
                             type: 'TOTAL',
