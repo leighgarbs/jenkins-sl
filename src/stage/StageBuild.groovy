@@ -39,7 +39,9 @@ class StageBuild extends Stage
 
             // Stash the make output, otherwise it may be deleted by another
             // stage before the conditional analysis below runs.
-            wfc.stash includes: 'make.*.out', name: 'Build'
+            wfc.stash includes: 'make.*.out',
+            name: 'Build',
+            useDefaultExcludes: false
 
             if (recordIssues)
             {
