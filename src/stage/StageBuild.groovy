@@ -45,6 +45,7 @@ class StageBuild extends Stage
             //{
                 // Publish build warnings
             wfc.publishIssues issues: [scanResult],
+            id: 'gcc-' + buildType,
             enabledForFailure: true,
             qualityGates: [[threshold: 1,
                             type: 'TOTAL',
