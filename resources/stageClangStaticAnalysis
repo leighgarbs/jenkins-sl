@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+# The Clang docs recommend always running on a debug build
 make clean
 scan-build ../bin/run-cmake --debug .
 
@@ -9,4 +10,4 @@ scan-build ../bin/run-cmake --debug .
 # way to do that.
 
 # Use --status-bugs to make this return 1 when issues are discovered
-scan-build -o clangScanBuildReports -v -v --use-cc clang --use-analyzer=/usr/bin/clang make -j 8 -B tests 2>&1 | tee clang.out
+scan-build -o clangScanBuildReports -v -v --use-cc clang --use-analyzer=/usr/bin/clang make -j 8 -B tests 2>&1 | tee clang.debug.out

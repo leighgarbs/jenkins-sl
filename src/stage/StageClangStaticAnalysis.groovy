@@ -20,7 +20,8 @@ class StageClangStaticAnalysis extends Stage
         qualityGates: [[threshold: 1,
                         type: 'TOTAL',
                         unstable: false]],
-        tools: [wfc.clang(pattern: 'clang.out')]
+        tools: [wfc.clang(name: 'Clang Static Analysis',
+                          pattern: 'clang.debug.out')]
 
         return returnCode == 0
     }
