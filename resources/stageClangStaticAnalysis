@@ -1,8 +1,5 @@
 #!/bin/bash -e
 
-# All stages should change directory to here
-cd $STAGE_DIR
-
 make clean
 scan-build ../bin/run-cmake --debug .
 
