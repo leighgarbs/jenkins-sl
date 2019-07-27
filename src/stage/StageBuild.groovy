@@ -39,21 +39,17 @@ class StageBuild extends Stage
 
             // Stash the make output, otherwise it may be deleted by another
             // stage before the conditional analysis below runs.
-            wfc.stash includes: 'make.*.out',
-            name: 'Build',
-            useDefaultExcludes: false
+            //wfc.stash includes: 'make.*.out',
+            //name: 'Build',
+            //useDefaultExcludes: false
 
-            if (recordIssues)
-            {
-                wfc.unstash 'Build'
+            //if (recordIssues)
+            //{
+            //    wfc.unstash 'Build'
 
                 // Publish build warnings
-                wfc.recordIssues enabledForFailure: true,
-                qualityGates: [[threshold: 1,
-                                type: 'TOTAL',
-                                unstable: false]],
-                tools: [wfc.gcc(pattern: 'make.*.out')]
-            }
+                wfc.scanForIssues tools: [wfc.gcc(pattern: 'make.*.out')]
+            //}
 
             return returnCode == 0
         }
