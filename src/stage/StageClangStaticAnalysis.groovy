@@ -13,6 +13,15 @@ class StageClangStaticAnalysis extends Stage
 
     boolean body()
     {
-        return wfc.runResourceScript('stageClangStaticAnalysis') == 0
+        def returnCode = wfc.runResourceScript('stageClangStaticAnalysis')
+
+        // Publish build warnings
+        wfc.recordIssues enabledForFailure: true,
+                         qualityGates: [[threshold: 1,
+                                         type: 'TOTAL',
+                                         unstable: false]],
+                         tools: [wfc.clang()]
+
+        return returnCode == 0
     }
 }

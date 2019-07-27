@@ -25,7 +25,16 @@ class StageBuild extends Stage
         // Use environment variables to get data into the resource script
         wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
         {
-            return wfc.runResourceScript('stageBuild') == 0
+            def returnCode = wfc.runResourceScript('stageBuild')
+
+            // Publish build warnings
+            wfc.recordIssues enabledForFailure: true,
+            qualityGates: [[threshold: 1,
+                            type: 'TOTAL',
+                            unstable: false]],
+            tools: [wfc.gcc(pattern: 'make.' + buildType + '.out')]
+
+            return returnCode == 0
         }
     }
 }
