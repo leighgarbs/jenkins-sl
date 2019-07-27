@@ -37,17 +37,18 @@ class StageBuild extends Stage
         {
             def returnCode = wfc.runResourceScript('stageBuild')
 
-            wfc.scanForIssues tool: wfc.gcc(
+            def scanResult = wfc.scanForIssues tool: wfc.gcc(
                 pattern: 'make.' + buildType + '.out')
 
-            if (publishIssues)
-            {
+            //if (publishIssues)
+            //{
                 // Publish build warnings
-                wfc.publishIssues enabledForFailure: true,
-                qualityGates: [[threshold: 1,
-                                type: 'TOTAL',
-                                unstable: false]]
-            }
+            wfc.publishIssues issues: scanResult,
+            enabledForFailure: true,
+            qualityGates: [[threshold: 1,
+                            type: 'TOTAL',
+                            unstable: false]]
+            //}
 
             return returnCode == 0
         }
