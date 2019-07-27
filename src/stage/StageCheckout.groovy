@@ -34,8 +34,7 @@ class StageCheckout extends Stage
                             reference: '',
                             trackingSubmodules: false]],
               submoduleCfg: [],
-              userRemoteConfigs: [[credentialsId: '',
-                                   url: git_repo]]]
+              userRemoteConfigs: [[credentialsId: '', url: git_repo]]]
 
         return true
     }
