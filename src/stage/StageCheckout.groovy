@@ -37,7 +37,7 @@ class StageCheckout extends Stage
                                          parentCredentials: false,
                                          recursiveSubmodules: true,
                                          reference: '',
-                                         trackingSubmodules: false],
+                                         trackingSubmodules: false]],
                            submoduleCfg: [],
                            userRemoteConfigs: [[credentialsId: '',
                                                 url: repo_under_test]]]
