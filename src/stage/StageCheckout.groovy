@@ -37,9 +37,7 @@ class StageCheckout extends Stage
                                          parentCredentials: false,
                                          recursiveSubmodules: true,
                                          reference: '',
-                                         trackingSubmodules: false],
-                                        [$class: 'RelativeTargetDirectory',
-                                         relativeTargetDir: wfc.env.STAGE_DIR]],
+                                         trackingSubmodules: false]
                            submoduleCfg: [],
                            userRemoteConfigs: [[credentialsId: '',
                                                 url: repo_under_test]]]
