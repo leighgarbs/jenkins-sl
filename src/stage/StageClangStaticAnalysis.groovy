@@ -17,10 +17,10 @@ class StageClangStaticAnalysis extends Stage
 
         // Publish build warnings
         wfc.recordIssues enabledForFailure: true,
-                         qualityGates: [[threshold: 1,
-                                         type: 'TOTAL',
-                                         unstable: false]],
-                         tools: [wfc.clang()]
+        qualityGates: [[threshold: 1,
+                        type: 'TOTAL',
+                        unstable: false]],
+        tools: [wfc.clang(pattern: 'clang.out')]
 
         return returnCode == 0
     }
