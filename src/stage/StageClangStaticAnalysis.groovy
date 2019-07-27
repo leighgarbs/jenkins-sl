@@ -18,10 +18,9 @@ class StageClangStaticAnalysis extends Stage
         def returnCode = wfc.runResourceScript('stageClangStaticAnalysis')
 
         // Publish build warnings
-        wfc.recordIssues enabledForFailure: true,
-        qualityGates: [[threshold: 1,
-                        type: 'TOTAL',
-                        unstable: false]],
+        wfc.recordIssues qualityGates: [[threshold: 1,
+                                         type: 'TOTAL',
+                                         unstable: false]],
         tools: [wfc.clang(name: 'Clang Static Analysis',
                           pattern: 'clang.debug.out')]
 
