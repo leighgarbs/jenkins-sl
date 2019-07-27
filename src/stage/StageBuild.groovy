@@ -53,9 +53,9 @@ class StageBuild extends Stage
             qualityGates: [[threshold: 1,
                             type: 'TOTAL',
                             unstable: false]],
-            tools: [gcc(id: 'gcc-' + buildType,
-                        name: 'Hello' + buildType,
-                        pattern: 'make.' + buildType + '.out')]
+            tools: [wfc.gcc(id: 'gcc-' + buildType,
+                            name: 'Hello' + buildType,
+                            pattern: 'make.' + buildType + '.out')]
 
             return returnCode == 0
         }
