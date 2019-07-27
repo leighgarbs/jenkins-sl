@@ -42,9 +42,10 @@ class StageBuild extends Stage
 
             // Report any build warnings.  This should fail the build if any
             // are discovered.
-            wfc.recordIssues qualityGates: [[threshold: 1,
-                                             type: 'TOTAL',
-                                             unstable: false]],
+            wfc.recordIssues enabledForFailure: true,
+            qualityGates: [[threshold: 1,
+                            type: 'TOTAL',
+                            unstable: false]],
             tools: [wfc.gcc(id: 'gcc-' + buildType,
                             name: displayName,
                             pattern: 'make.' + buildType + '.out')]
