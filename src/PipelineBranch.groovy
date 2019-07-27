@@ -87,9 +87,7 @@ class PipelineBranch
                         // interfering in stage execution.
                         wfc.dir(wfc.STAGE_DIR)
                         {
-                            // This does return a usable error code but
-                            // runStage() should have dealt with handling the
-                            // error already.
+                            // Any errors in this function are handled within it
                             stage.run()
 
                             // Doing this causes this build to stop at the first

@@ -11,10 +11,7 @@ class StageBuild extends Stage
     String target
 
     // Constructor
-    StageBuild(def     wfc,
-               String  name,
-               String  buildType,
-               String  target)
+    StageBuild(def wfc, String name, String buildType, String target)
     {
         // Satisfy the parent constructor
         super(wfc, name)

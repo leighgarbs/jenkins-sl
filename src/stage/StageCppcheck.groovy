@@ -21,24 +21,22 @@ class StageCppcheck extends Stage
 
         wfc.withEnv(['CPPCHECK_ARGS=' + arguments])
         {
-            // Purposefully ignore the error code.  Only the analysis of the
-            // results performed by publishCppcheck should affect build status.
             returnCode = wfc.runResourceScript('stageCppcheck')
 
             // Publish Cppcheck issues
             wfc.publishCppcheck displayAllErrors: false,
-                                displayErrorSeverity: true,
-                                displayPerformanceSeverity: true,
-                                displayPortabilitySeverity: true,
-                                displayStyleSeverity: true,
-                                displayWarningSeverity: true,
-                                failureThreshold: '0',
-                                severityInformation: false,
-                                pattern: 'cppcheck.xml',
-                                severityNoCategory: false,
-                                severityPerformance: false,
-                                severityPortability: false,
-                                severityStyle: false
+            displayErrorSeverity: true,
+            displayPerformanceSeverity: true,
+            displayPortabilitySeverity: true,
+            displayStyleSeverity: true,
+            displayWarningSeverity: true,
+            failureThreshold: '0',
+            severityInformation: false,
+            pattern: 'cppcheck.xml',
+            severityNoCategory: false,
+            severityPerformance: false,
+            severityPortability: false,
+            severityStyle: false
         }
 
         return returnCode == 0
