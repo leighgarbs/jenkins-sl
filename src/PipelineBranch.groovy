@@ -72,21 +72,30 @@ class PipelineBranch
                         print 'Running stage ' + stage.name + ' on ' +
                             platform
 
-                        // This does return a usable error code but runStage()
-                        // should have dealt with handling the error already.
-                        stage.run()
-
-                        // Doing this causes this build to stop at the first
-                        // stage that is unstable or has outright failed.
-                        // Otherwise the stage will be marked as unstable or
-                        // failed and the build will continue.
-                        if (wfc.currentBuild.result == 'UNSTABLE' ||
-                            wfc.currentBuild.result == 'FAILURE')
+                        // Make a directory for all the stages to execute in.
+                        // This leaves the current directory as a safe place to
+                        // put workflow utilities needed during the build.  This
+                        // should prevent those utilities from somehow
+                        // interfering in stage execution.
+                        wfc.dir(wfc.STAGE_DIR)
                         {
-                            print 'Current build result is ' +
-                                wfc.currentBuild.result + ', exiting early'
+                            // This does return a usable error code but
+                            // runStage() should have dealt with handling the
+                            // error already.
+                            stage.run()
 
-                            break
+                            // Doing this causes this build to stop at the first
+                            // stage that is unstable or has outright failed.
+                            // Otherwise the stage will be marked as unstable or
+                            // failed and the build will continue.
+                            if (wfc.currentBuild.result == 'UNSTABLE' ||
+                                wfc.currentBuild.result == 'FAILURE')
+                            {
+                                print 'Current build result is ' +
+                                    wfc.currentBuild.result + ', exiting early'
+
+                                break
+                            }
                         }
                     }
                 }

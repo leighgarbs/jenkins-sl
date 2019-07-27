@@ -69,21 +69,18 @@ abstract class Stage
                 connection: wfc.gitLabConnection('gitlab.dmz'),
                 name:       name)
             {
-                wfc.dir(wfc.STAGE_DIR)
+                // If the body fails outright or caused the current build to go
+                // unstable or fail
+                if (!body() ||
+                    wfc.currentBuild.result == 'UNSTABLE' ||
+                    wfc.currentBuild.result == 'FAILURE')
                 {
-                    // If the body fails outright or caused the current build to
-                    // go unstable or fail
-                    if (!body() ||
-                        wfc.currentBuild.result == 'UNSTABLE' ||
-                        wfc.currentBuild.result == 'FAILURE')
-                    {
-                        // Gitlab doesn't have a commit status for unstable
-                        wfc.updateGitlabCommitStatus(name:  name,
-                                                     state: 'failed')
+                    // Gitlab doesn't have a commit status for unstable
+                    wfc.updateGitlabCommitStatus(name:  name,
+                                                 state: 'failed')
 
-                        wfc.error(
-                            'Stage ' + name + ' failed on ' + platformName)
-                    }
+                    wfc.error(
+                        'Stage ' + name + ' failed on ' + platformName)
                 }
             }
 
