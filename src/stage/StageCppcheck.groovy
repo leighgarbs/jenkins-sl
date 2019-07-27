@@ -39,7 +39,6 @@ class StageCppcheck extends Stage
                                 severityPerformance: false,
                                 severityPortability: false,
                                 severityStyle: false
-            }
         }
 
         return returnCode
