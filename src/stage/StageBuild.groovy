@@ -32,13 +32,24 @@ class StageBuild extends Stage
             // by the reporting step below
             def returnCode = wfc.runResourceScript('stageBuild')
 
+            // Make how the build warnings display in the GUI a bit prettier
+            def displayName = 'GNU C Compiler (gcc) (' + buildType + ')'
+            if (buildType == 'debug')
+            {
+                displayName = 'Debug Build'
+            }
+            else if (buildType == 'release')
+            {
+                displayName = 'Release Build'
+            }
+
             // Report any build warnings.  This should fail the build if any
             // are discovered.
             wfc.recordIssues qualityGates: [[threshold: 1,
                                              type: 'TOTAL',
                                              unstable: false]],
             tools: [wfc.gcc(id: 'gcc-' + buildType,
-                            name: 'GNU C Compiler (gcc) (' + buildType + ')',
+                            name: displayName,
                             pattern: 'make.' + buildType + '.out')]
 
             return returnCode == 0
