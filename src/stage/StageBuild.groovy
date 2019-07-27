@@ -48,7 +48,7 @@ class StageBuild extends Stage
             //    wfc.unstash 'Build'
 
                 // Publish build warnings
-                wfc.scanForIssues tools: [wfc.gcc(pattern: 'make.*.out')]
+                wfc.scanForIssues tool: wfc.gcc(pattern: 'make.*.out')
             //}
 
             return returnCode == 0
