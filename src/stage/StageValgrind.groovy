@@ -13,6 +13,20 @@ class StageValgrind extends Stage
 
     boolean body()
     {
-        return wfc.runResourceScript('stageValgrind') == 0
+        def returnCode = wfc.runResourceScript('stageValgrind')
+
+        // Publish any discovered issues
+        wfc.step([$class: 'ValgrindPublisher',
+                  failBuildOnInvalidReports: true,
+                  failBuildOnMissingReports: true,
+                  failThresholdDefinitelyLost: '0',
+                  failThresholdInvalidReadWrite: '0',
+                  failThresholdTotal: '0',
+                  pattern: 'valgrind.*.xml',
+                  publishResultsForAbortedBuilds: false,
+                  publishResultsForFailedBuilds: true,
+                  sourceSubstitutionPaths: ''])
+
+        return returnCode == 0
     }
 }

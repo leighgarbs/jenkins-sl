@@ -25,7 +25,32 @@ class StageBuild extends Stage
         // Use environment variables to get data into the resource script
         wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
         {
-            return wfc.runResourceScript('stageBuild') == 0
+            // Actually run the build.  This tees output to a file that is used
+            // by the reporting step below
+            def returnCode = wfc.runResourceScript('stageBuild')
+
+            // Make how the build warnings display in the GUI a bit prettier
+            def displayName = 'GNU C Compiler (gcc) (' + buildType + ')'
+            if (buildType == 'debug')
+            {
+                displayName = 'Debug Build'
+            }
+            else if (buildType == 'release')
+            {
+                displayName = 'Release Build'
+            }
+
+            // Report any build warnings.  This should fail the build if any
+            // are discovered.
+            wfc.recordIssues enabledForFailure: true,
+            qualityGates: [[threshold: 1,
+                            type: 'TOTAL',
+                            unstable: false]],
+            tools: [wfc.gcc(id: 'gcc-' + buildType,
+                            name: displayName,
+                            pattern: 'make.' + buildType + '.out')]
+
+            return returnCode == 0
         }
     }
 }
