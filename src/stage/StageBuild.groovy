@@ -38,7 +38,7 @@ class StageBuild extends Stage
                                              type: 'TOTAL',
                                              unstable: false]],
             tools: [wfc.gcc(id: 'gcc-' + buildType,
-                            name: 'Hello' + buildType,
+                            name: 'GNU C Compiler (gcc) (' + buildType + ')',
                             pattern: 'make.' + buildType + '.out')]
 
             return returnCode == 0
