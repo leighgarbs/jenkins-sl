@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # The Clang docs recommend always running on a debug build
-make clean
+git clean -x -d -f
 scan-build ../bin/run-cmake --debug .
 
 # Run clang in such a way that all output goes both to the console and to a
