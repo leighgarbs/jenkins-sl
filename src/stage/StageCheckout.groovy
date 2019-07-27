@@ -4,20 +4,17 @@ package stage
 
 class StageCheckout extends Stage
 {
-    String            repo_under_test
-    ArrayList<String> other_repos
+    String            git_repo
 
     // Constructor
     StageCheckout(def wfc,
-                  String repo_under_test,
-                  ArrayList<String> other_repos = [],
+                  String git_repo,
                   String name = 'CHECKOUT')
     {
         // Satisfy the parent constructor
         super(wfc, name)
 
-        this.repo_under_test = repo_under_test
-        this.other_repos = other_repos
+        this.git_repo = git_repo
     }
 
     boolean body()
@@ -30,7 +27,7 @@ class StageCheckout extends Stage
                      scm: [$class: 'GitSCM',
                            branches: [[name: wfc.env.BRANCH_NAME]],
                            browser: [$class: 'GitLab',
-                                     repoUrl: repo_under_test,
+                                     repoUrl: git_repo,
                                      version: '$GITLAB_VERSION'],
                            extensions: [[$class: 'SubmoduleOption',
                                          disableSubmodules: false,
@@ -40,21 +37,7 @@ class StageCheckout extends Stage
                                          trackingSubmodules: false]],
                            submoduleCfg: [],
                            userRemoteConfigs: [[credentialsId: '',
-                                                url: repo_under_test]]]
-
-        // These repositories have things we need for other stages, but aren't
-        // themselves under test
-        for (repo in other_repos)
-        {
-            // Fail if check out does not work
-            def returnCode = wfc.sh returnStatus: true,
-                                    script: 'git clone ' + repo
-
-            if (returnCode != 0)
-            {
-                return false
-            }
-        }
+                                                url: git_repo]]]
 
         return true
     }

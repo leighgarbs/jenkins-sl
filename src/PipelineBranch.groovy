@@ -67,6 +67,14 @@ class PipelineBranch
                         wfc.cleanWs()
                     }
 
+                    // Some of the stages use utilities out of this repository.
+                    def returnCode = wfc.sh returnStatus: true,
+                    script: 'git clone http://gitlab.dmz/leighgarbs/bin.git'
+                    if (returnCode != 0)
+                    {
+                        error('Cannot checkout bin repository, exiting early')
+                    }
+
                     for (stage in stages)
                     {
                         print 'Running stage ' + stage.name + ' on ' +
