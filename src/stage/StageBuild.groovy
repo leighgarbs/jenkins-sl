@@ -45,7 +45,7 @@ class StageBuild extends Stage
 
             if (recordIssues)
             {
-                unstash 'Build'
+                wfc.unstash 'Build'
 
                 // Publish build warnings
                 wfc.recordIssues enabledForFailure: true,
