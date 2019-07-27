@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+echo $PWD
 git clean -x -d -f
 ../bin/run-cmake --$BUILD_TYPE .
 
