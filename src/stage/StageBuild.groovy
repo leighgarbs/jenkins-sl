@@ -10,24 +10,24 @@ class StageBuild extends Stage
     // Make target
     String target
 
-    // Should this stage record build warnings?  Build warnings can only be
-    // recorded once per build.  Trying to record them more than once will crash
-    // the pipeline.
-    boolean recordIssues
+    // Should this stage publish build warnings?  Build warnings can only be
+    // published once per pipeline.  Trying to publish them more than once will
+    // crash the pipeline.
+    boolean publishIssues
 
     // Constructor
     StageBuild(def     wfc,
                String  name,
                String  buildType,
                String  target,
-               boolean recordIssues)
+               boolean publishIssues)
     {
         // Satisfy the parent constructor
         super(wfc, name)
 
         this.buildType = buildType
         this.target = target
-        this.recordIssues = recordIssues
+        this.publishIssues = publishIssues
     }
 
     boolean body()
@@ -37,19 +37,17 @@ class StageBuild extends Stage
         {
             def returnCode = wfc.runResourceScript('stageBuild')
 
-            // Stash the make output, otherwise it may be deleted by another
-            // stage before the conditional analysis below runs.
-            //wfc.stash includes: 'make.*.out',
-            //name: 'Build',
-            //useDefaultExcludes: false
+            wfc.scanForIssues tool: wfc.gcc(
+                pattern: 'make.' + buildType + '.out')
 
-            //if (recordIssues)
-            //{
-            //    wfc.unstash 'Build'
-
+            if (publishIssues)
+            {
                 // Publish build warnings
-                wfc.scanForIssues tool: wfc.gcc(pattern: 'make.*.out')
-            //}
+                wfc.publishIssues enabledForFailure: true,
+                qualityGates: [[threshold: 1,
+                                type: 'TOTAL',
+                                unstable: false]]
+            }
 
             return returnCode == 0
         }
