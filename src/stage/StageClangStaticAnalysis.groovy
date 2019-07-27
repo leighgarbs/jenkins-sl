@@ -13,6 +13,8 @@ class StageClangStaticAnalysis extends Stage
 
     boolean body()
     {
+        // This writes clang.debug.out to the workspace so the recordIssues step
+        // below can ingest it.
         def returnCode = wfc.runResourceScript('stageClangStaticAnalysis')
 
         // Publish build warnings

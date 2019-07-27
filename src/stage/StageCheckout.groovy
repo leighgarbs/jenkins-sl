@@ -4,7 +4,7 @@ package stage
 
 class StageCheckout extends Stage
 {
-    String            git_repo
+    String git_repo
 
     // Constructor
     StageCheckout(def wfc, String git_repo, String name = 'CHECKOUT')
