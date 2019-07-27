@@ -17,6 +17,8 @@ class StageCppcheck extends Stage
 
     boolean body()
     {
+        def returnCode = 0
+
         // stageCppcheck script is written to work out of the current directory,
         // and all the code is in STAGE_DIR, so go there
         wfc.dir(wfc.STAGE_DIR)
@@ -26,7 +28,22 @@ class StageCppcheck extends Stage
                 // Purposefully ignore the error code.  Only the analysis of the
                 // results performed by publishCppcheck should affect build
                 // status.
-                wfc.runResourceScript('stageCppcheck')
+                returnCode = wfc.runResourceScript('stageCppcheck')
+
+                // Publish Cppcheck issues
+                wfc.publishCppcheck displayAllErrors: false,
+                                    displayErrorSeverity: true,
+                                    displayPerformanceSeverity: true,
+                                    displayPortabilitySeverity: true,
+                                    displayStyleSeverity: true,
+                                    displayWarningSeverity: true,
+                                    failureThreshold: '0',
+                                    severityInformation: false,
+                                    pattern: 'cppcheck.xml',
+                                    severityNoCategory: false,
+                                    severityPerformance: false,
+                                    severityPortability: false,
+                                    severityStyle: false
             }
         }
 
