@@ -68,8 +68,20 @@ class PipelineBranch
                     }
 
                     // Some of the stages use utilities out of this repository.
-                    def returnCode = wfc.sh returnStatus: true,
-                    script: 'git clone http://gitlab.dmz/leighgarbs/bin.git'
+                    def binRepo =
+                        'git clone http://gitlab.dmz/leighgarbs/bin.git'
+
+                    def returnCode = 0
+
+                    if (wfc.isUnix())
+                    {
+                        returnCode = wfc.sh returnStatus: true, script: binRepo
+                    }
+                    else
+                    {
+                        returnCode = wfc.bat returnStatus: true, script: binRepo
+                    }
+
                     if (returnCode != 0)
                     {
                         wfc.error(
