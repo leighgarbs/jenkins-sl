@@ -73,6 +73,9 @@ class PipelineBranch
 
                     def returnCode = 0
 
+                    // Checking out this utility repository is done with a
+                    // short script.  The method for running scripts varies with
+                    // platform (sh for Unix-like, bat for Windows).
                     if (wfc.isUnix())
                     {
                         returnCode = wfc.sh returnStatus: true, script: binRepo
