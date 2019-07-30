@@ -67,7 +67,9 @@ class PipelineBranch
                         wfc.cleanWs()
                     }
 
-                    // Some of the stages use utilities out of this repository.
+                    // Some of the stages use utilities out of the repository
+                    // cloned by this command.  Fortunately this command works
+                    // across all currently-supported platforms.
                     def binRepo =
                         'git clone http://gitlab.dmz/leighgarbs/bin.git'
 
