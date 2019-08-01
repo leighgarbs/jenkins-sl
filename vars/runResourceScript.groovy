@@ -3,7 +3,7 @@
 def call(wfc, scriptName)
 {
     // Looks in the resources directory for script "scriptName"
-    def script = libraryResource scriptName
+    def script = wfc.libraryResource scriptName
 
     def returnCode = 0
 
