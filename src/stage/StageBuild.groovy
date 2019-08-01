@@ -25,6 +25,7 @@ class StageBuild extends Stage
         // Use environment variables to get data into the resource script
         wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
         {
+            sh 'echo $PWD'
             def returnCode = wfc.runResourceScript(wfc, 'linux/stageBuild')
 
             // Make how the build warnings display in the GUI a bit prettier
