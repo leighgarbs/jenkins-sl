@@ -15,7 +15,7 @@ class StageCheckout extends Stage
         this.git_repo = git_repo
     }
 
-    boolean body()
+    boolean runLinux()
     {
         // This clones the git repository we'll be building and testing.  Not
         // sure if this is somehow better than just doing the clone in the
@@ -37,5 +37,10 @@ class StageCheckout extends Stage
               userRemoteConfigs: [[credentialsId: '', url: git_repo]]]
 
         return true
+    }
+
+    boolean runWindows()
+    {
+        return runLinux()
     }
 }

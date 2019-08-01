@@ -4,7 +4,7 @@ package stage
 
 // Stages are not specific to platforms.  At a high level each stage is aware of
 // of the platform it's running on and adjusts itself accordingly.
-class Stage
+abstract class Stage
 {
     // Reference to the workflow context (wfc) the Jenkinsfile content runs in.
     // I don't know how to statically define this yet so "def" will have to do.
@@ -14,8 +14,8 @@ class Stage
     protected String name
 
     // Each stage knows how to run itself on these platforms
-    //abstract boolean runLinux()
-    //abstract boolean runWindows()
+    abstract boolean runLinux()
+    abstract boolean runWindows()
 
     // Constructor
     Stage(def wfc, String name)
@@ -64,7 +64,7 @@ class Stage
                     // Linux platform
                     wfc.node('Linux')
                     {
-                        print 'Running on Linux'
+                        returnCodeLinux = runLinux()
                     }
 
                 }, Windows: {
@@ -73,14 +73,15 @@ class Stage
                     // Windows platform
                     wfc.node('Windows')
                     {
-                        print 'Running on Windows'
+                        returnCodeWindows = runWindows()
                     }
 
                 }
 
                 // If the body fails outright or caused the current build to go
                 // unstable or fail
-/*                if (!body() ||
+                if (!returnCodeLinux ||
+                    !returnCodeWindows ||
                     wfc.currentBuild.result == 'UNSTABLE' ||
                     wfc.currentBuild.result == 'FAILURE')
                 {
@@ -89,7 +90,7 @@ class Stage
                                                  state: 'failed')
 
                     wfc.error('Stage ' + name + ' failed')
-                }*/
+                }
             }
 
             wfc.echo 'Stage ' + name + ' complete'
