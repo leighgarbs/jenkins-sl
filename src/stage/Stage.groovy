@@ -64,7 +64,15 @@ abstract class Stage
                     // Linux platform
                     wfc.node('Linux')
                     {
-                        returnCodeLinux = runLinux()
+                        // Make a directory for all the stages to execute in.
+                        // This leaves the current directory as a safe place to
+                        // put workflow utilities needed during the build.  This
+                        // should prevent those utilities from somehow
+                        // interfering in stage execution.
+                        wfc.dir(wfc.STAGE_DIR)
+                        {
+                            returnCodeLinux = runLinux()
+                        }
                     }
 
                 }, Windows: {
@@ -73,7 +81,10 @@ abstract class Stage
                     // Windows platform
                     wfc.node('Windows')
                     {
-                        returnCodeWindows = runWindows()
+                        wfc.dir(wfc.STAGE_DIR)
+                        {
+                            returnCodeWindows = runWindows()
+                        }
                     }
 
                 }
