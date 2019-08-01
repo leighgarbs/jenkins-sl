@@ -4,7 +4,7 @@ package stage
 
 // Stages are not specific to platforms.  At a high level each stage is aware of
 // of the platform it's running on and adjusts itself accordingly.
-abstract class Stage
+class Stage
 {
     // Reference to the workflow context (wfc) the Jenkinsfile content runs in.
     // I don't know how to statically define this yet so "def" will have to do.
