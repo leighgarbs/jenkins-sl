@@ -2,8 +2,8 @@
 
 package stage
 
-// Stages are not specific to platforms.  At a high level each stage is expected
-// to be aware of the platform it's running on and adjust itself accordingly.
+// Stages are not specific to platforms.  At a high level each stage is aware of
+// of the platform it's running on and adjusts itself accordingly.
 abstract class Stage
 {
     // Reference to the workflow context (wfc) the Jenkinsfile content runs in.
@@ -13,8 +13,9 @@ abstract class Stage
     // All stages have names.  This gets displayed in the Jenkins pipeline GUI.
     protected String name
 
-    // What each stage does specifically is defined in derived classes
-    abstract boolean body()
+    // Each stage knows how to run itself on these platforms
+    //abstract boolean runLinux()
+    //abstract boolean runWindows()
 
     // Constructor
     Stage(def wfc, String name)
@@ -26,26 +27,11 @@ abstract class Stage
     // Runs the body in the appropriate workflow code context
     void run()
     {
-        def platformName = ''
-
-        if (wfc.isUnix())
-        {
-            // MacOS will also cause isUnix() to return true, but we don't
-            // support automated MacOS builds yet
-            platformName = 'Linux'
-        }
-        else
-        {
-            // The only other platform we support automated builds for is
-            // Windows
-            platformName = 'Windows'
-        }
-
         // This is where the stage name that shows up in the Jenkins GUI
         // pipeline widget is actually set.  Stage names should be unique.  It
         // is possible to give multiple stages the same name but the Jenkins GUI
         // pipeline widget will bug out if this is done.
-        wfc.stage(name + ' (' + platformName + ')')
+        wfc.stage(name)
         {
             wfc.echo 'Starting stage ' + name
 
@@ -69,9 +55,32 @@ abstract class Stage
                 connection: wfc.gitLabConnection('gitlab.dmz'),
                 name:       name)
             {
+                def returnCodeLinux   = 0
+                def returnCodeWindows = 0
+
+                wfc.parallel Linux: {
+
+                    // Run the Linux dimension of this stage on an available
+                    // Linux platform
+                    wfc.node('Linux')
+                    {
+                        print 'Running on Linux'
+                    }
+
+                }, Windows: {
+
+                    // Run the Windows dimension of this stage on an available
+                    // Windows platform
+                    wfc.node('Windows')
+                    {
+                        print 'Running on Windows'
+                    }
+
+                }
+
                 // If the body fails outright or caused the current build to go
                 // unstable or fail
-                if (!body() ||
+/*                if (!body() ||
                     wfc.currentBuild.result == 'UNSTABLE' ||
                     wfc.currentBuild.result == 'FAILURE')
                 {
@@ -79,9 +88,8 @@ abstract class Stage
                     wfc.updateGitlabCommitStatus(name:  name,
                                                  state: 'failed')
 
-                    wfc.error(
-                        'Stage ' + name + ' failed on ' + platformName)
-                }
+                    wfc.error('Stage ' + name + ' failed')
+                }*/
             }
 
             wfc.echo 'Stage ' + name + ' complete'
