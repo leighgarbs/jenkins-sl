@@ -25,28 +25,10 @@ class StageBuild extends Stage
         // Use environment variables to get data into the resource script
         wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
         {
-            def returnCode = 0
-            def displayName = ''
-
-            if (wfc.isUnix())
-            {
-                // Default display name on Linux.  Only used for builds of an
-                // unrecognized type, which never happens
-                displayName = 'GNU C Compiler (gcc) (' + buildType + ')'
-
-                returnCode = wfc.runResourceScript(wfc, 'linux/stageBuild')
-            }
-            else
-            {
-                // Default display name on Windows.  Only used for builds of an
-                // unrecognized type, which never happens
-                displayName = 'MSBuild (' + buildType + ')'
-
-                returnCode =
-                    wfc.runResourceScript(wfc, 'windows/stageBuild.bat')
-            }
+            def returnCode = wfc.runResourceScript(wfc, 'linux/stageBuild')
 
             // Make how the build warnings display in the GUI a bit prettier
+            def displayName = 'GNU C Compiler (gcc) (' + buildType + ')'
             if (buildType == 'debug')
             {
                 displayName = 'Debug Build'
