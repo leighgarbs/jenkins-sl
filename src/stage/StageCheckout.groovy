@@ -20,7 +20,7 @@ class StageCheckout extends Stage
 
     boolean runLinux()
     {
-        cleanWs()
+        wfc.cleanWs()
 
         // This clones the git repository we'll be building and testing.  Not
         // sure if this is somehow better than just doing the clone in the
@@ -48,7 +48,7 @@ class StageCheckout extends Stage
 
     boolean runWindows()
     {
-        cleanWs()
+        wfc.cleanWs()
 
         // This clones the git repository we'll be building and testing.  Not
         // sure if this is somehow better than just doing the clone in the
