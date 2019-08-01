@@ -11,8 +11,13 @@ class StageTests extends Stage
         super(wfc, name)
     }
 
-    boolean body()
+    boolean runLinux()
     {
         return wfc.runResourceScript('stageTests') == 0
+    }
+
+    boolean runWindows()
+    {
+        return true
     }
 }

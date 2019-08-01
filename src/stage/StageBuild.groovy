@@ -20,7 +20,7 @@ class StageBuild extends Stage
         this.target = target
     }
 
-    boolean body()
+    boolean runLinux()
     {
         // Use environment variables to get data into the resource script
         wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
@@ -68,5 +68,10 @@ class StageBuild extends Stage
 
             return returnCode == 0
         }
+    }
+
+    boolean runWindows()
+    {
+        return true
     }
 }

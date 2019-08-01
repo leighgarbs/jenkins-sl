@@ -15,7 +15,7 @@ class StageCppcheck extends Stage
         this.arguments = arguments
     }
 
-    boolean body()
+    boolean runLinux()
     {
         def returnCode = 0
 
@@ -40,5 +40,10 @@ class StageCppcheck extends Stage
         }
 
         return returnCode == 0
+    }
+
+    boolean runWindows()
+    {
+        return true
     }
 }

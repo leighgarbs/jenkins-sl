@@ -11,7 +11,7 @@ class StageValgrind extends Stage
         super(wfc, name)
     }
 
-    boolean body()
+    boolean runLinux()
     {
         def returnCode = wfc.runResourceScript('stageValgrind')
 
@@ -28,5 +28,10 @@ class StageValgrind extends Stage
                   sourceSubstitutionPaths: ''])
 
         return returnCode == 0
+    }
+
+    boolean runWindows()
+    {
+        return true
     }
 }

@@ -11,7 +11,7 @@ class StageClangStaticAnalysis extends Stage
         super(wfc, name)
     }
 
-    boolean body()
+    boolean runLinux()
     {
         // This writes clang.debug.out to the workspace so the recordIssues step
         // below can ingest it.
@@ -26,5 +26,10 @@ class StageClangStaticAnalysis extends Stage
                           pattern: 'clang.debug.out')]
 
         return returnCode == 0
+    }
+
+    boolean runWindows()
+    {
+        return true
     }
 }
