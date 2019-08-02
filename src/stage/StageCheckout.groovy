@@ -42,8 +42,6 @@ class StageCheckout extends Stage
               submoduleCfg: [],
               userRemoteConfigs: [[credentialsId: '', url: git_repo]]]
 
-        wfc.sh returnStatus: true, script: binRepo
-
         return true
     }
 
@@ -67,8 +65,6 @@ class StageCheckout extends Stage
                             trackingSubmodules: false]],
               submoduleCfg: [],
               userRemoteConfigs: [[credentialsId: '', url: git_repo]]]
-
-        wfc.bat returnStatus: true, script: binRepo
 
         return true
     }
