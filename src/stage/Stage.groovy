@@ -13,15 +13,18 @@ abstract class Stage
     // All stages have names.  This gets displayed in the Jenkins pipeline GUI.
     protected String name
 
+    protected boolean cleanWorkspace
+
     // Each stage knows how to run itself on these platforms
     abstract boolean runLinux()
     abstract boolean runWindows()
 
     // Constructor
-    Stage(def wfc, String name)
+    Stage(def wfc, String name, boolean cleanWorkspace = false)
     {
         this.wfc = wfc
         this.name = name
+        this.cleanWorkspace = cleanWorkspace
     }
 
     // Runs the body in the appropriate workflow code context
@@ -64,6 +67,11 @@ abstract class Stage
                     // Linux platform
                     wfc.node('Linux')
                     {
+                        if (cleanWorkspace)
+                        {
+                            wfc.cleanWs()
+                        }
+
                         // Make a directory for all the stages to execute in.
                         // This leaves the current directory as a safe place to
                         // put workflow utilities needed during the build.  This
@@ -81,6 +89,11 @@ abstract class Stage
                     // Windows platform
                     wfc.node('Windows')
                     {
+                        if (cleanWorkspace)
+                        {
+                            wfc.cleanWs()
+                        }
+
                         wfc.dir(wfc.STAGE_DIR)
                         {
                             returnCodeWindows = runWindows()

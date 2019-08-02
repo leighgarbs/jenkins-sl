@@ -10,18 +10,19 @@ class StageCheckout extends Stage
     def binRepo = 'git clone http://gitlab.dmz/leighgarbs/bin.git'
 
     // Constructor
-    StageCheckout(def wfc, String git_repo, String name = 'CHECKOUT')
+    StageCheckout(def wfc,
+                  String git_repo,
+                  boolean cleanWorkspace = false,
+                  String name = 'CHECKOUT')
     {
         // Satisfy the parent constructor
-        super(wfc, name)
+        super(wfc, name, cleanWorkspace)
 
         this.git_repo = git_repo
     }
 
     boolean runLinux()
     {
-        wfc.cleanWs()
-
         // This clones the git repository we'll be building and testing.  Not
         // sure if this is somehow better than just doing the clone in the
         // shell.
@@ -48,8 +49,6 @@ class StageCheckout extends Stage
 
     boolean runWindows()
     {
-        wfc.cleanWs()
-
         // This clones the git repository we'll be building and testing.  Not
         // sure if this is somehow better than just doing the clone in the
         // shell.
