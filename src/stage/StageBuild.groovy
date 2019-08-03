@@ -85,12 +85,11 @@ class StageBuild extends Stage
         def includeFilter = wfc.env.BRANCH_NAME
         wfc.recordIssues filters: [wfc.includeFile(includeFilter)],
         enabledForFailure: true,
-        qualityGates: [[threshold: 1,
-                        type: 'TOTAL',
-                        unstable: false]],
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
                             name: displayName,
                             pattern: 'build.' + buildType + '.out')]
+
+        // There should be a quality gate here similar to the Linux function
 
         return returnCode == 0
     }
