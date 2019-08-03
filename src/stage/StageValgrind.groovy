@@ -6,13 +6,12 @@ class StageValgrind extends Stage
 {
     // Constructor
     StageValgrind(def wfc,
-                  String name = 'VALGRIND',
                   boolean cleanWorkspace = false,
                   boolean runOnLinux = true,
                   boolean runOnWindows = false)
     {
         // Satisfy the parent constructor
-        super(wfc, name, cleanWorkspace, runOnLinux, runOnWindows)
+        super(wfc, 'VALGRIND', cleanWorkspace, runOnLinux, runOnWindows)
     }
 
     boolean runLinux()

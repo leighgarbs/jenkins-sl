@@ -12,13 +12,12 @@ class StageCheckout extends Stage
     // Constructor
     StageCheckout(def wfc,
                   String git_repo,
-                  String name = 'CHECKOUT',
                   boolean cleanWorkspace = false,
                   boolean runOnLinux = true,
                   boolean runOnWindows = true)
     {
         // Satisfy the parent constructor
-        super(wfc, name, cleanWorkspace, runOnLinux, runOnWindows)
+        super(wfc, 'CHECKOUT', cleanWorkspace, runOnLinux, runOnWindows)
 
         this.git_repo = git_repo
     }
