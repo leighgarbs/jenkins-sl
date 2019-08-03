@@ -106,6 +106,8 @@ abstract class Stage
                 }
             }
 
+            wfc.error('HEYYYY')
+
             wfc.echo 'Stage ' + name + ' complete'
         }
     }
