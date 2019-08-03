@@ -45,6 +45,7 @@ class StageBuild extends Stage
         // Report any build warnings on code that's actually in the workspace.
         // By doing this we're assuming other code like system headers are not
         // of interest.
+        echo wfc.env.WORKSPACE
         wfc.recordIssues filters: [wfc.includeFile(wfc.env.WORKSPACE)],
         enabledForFailure: true,
         qualityGates: [[threshold: 1,
