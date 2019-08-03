@@ -58,9 +58,6 @@ abstract class Stage
                 connection: wfc.gitLabConnection('gitlab.dmz'),
                 name:       name)
             {
-                def returnCodeLinux   = 0
-                def returnCodeWindows = 0
-
                 wfc.parallel Linux: {
 
                     // Run the Linux dimension of this stage on an available
@@ -72,7 +69,7 @@ abstract class Stage
                             wfc.cleanWs()
                         }
 
-                        returnCodeLinux = runLinux()
+                        checkForFailure(wfc, !runLinux())
                     }
 
                 }, Windows: {
@@ -86,31 +83,27 @@ abstract class Stage
                             wfc.cleanWs()
                         }
 
-                        returnCodeWindows = runWindows()
+                        checkForFailure(wfc, !runWindows())
                     }
 
                 }, failFast: false
-
-                wfc.error('asdfasdfasdfasdf')
-
-                // If the body fails outright or caused the current build to go
-                // unstable or fail
-                if (!returnCodeLinux ||
-                    !returnCodeWindows ||
-                    wfc.currentBuild.result == 'UNSTABLE' ||
-                    wfc.currentBuild.result == 'FAILURE')
-                {
-                    // Gitlab doesn't have a commit status for unstable
-                    wfc.updateGitlabCommitStatus(name:  name,
-                                                 state: 'failed')
-
-                    wfc.error('Stage ' + name + ' failed')
-                }
             }
 
-            wfc.error('HEYYYY')
-
             wfc.echo 'Stage ' + name + ' complete'
+        }
+    }
+
+    void checkForFailure(def wfc, boolean failed)
+    {
+        if (failed ||
+            wfc.currentBuild.result == 'UNSTABLE' ||
+            wfc.currentBuild.result == 'FAILURE')
+        {
+            // Gitlab doesn't have a commit status for unstable
+            wfc.updateGitlabCommitStatus(name:  name,
+                                         state: 'failed')
+
+            wfc.error('Stage ' + name + ' failed')
         }
     }
 }
