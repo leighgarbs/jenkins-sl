@@ -80,11 +80,13 @@ class StageBuild extends Stage
         // Report any build warnings.  This should fail the build if any
         // are discovered.
 
-        // Include only warnings originating from code in the workspace.
-        // Assumes we don't care about anything else.
-        def includeFilter =
-            '(?i)' + wfc.env.WORKSPACE.replace('\\', '/')
-        wfc.recordIssues filters: [wfc.includeFile(includeFilter)],
+        // Include only warnings originating from code in the workspace.  The
+        // workspace pattern has to be matched case insensitive because Jenkins
+        // stores the pattern in all lowercase for some reason.  This seems like
+        // something a user could maybe want to configure but for now just
+        // hardcode it.
+        wfc.recordIssues filters:
+            [wfc.includeFile('(?i)' + wfc.env.WORKSPACE.replace('\\', '/'))],
         enabledForFailure: true,
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
                             name: displayName,

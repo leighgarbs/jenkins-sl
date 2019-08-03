@@ -48,7 +48,7 @@ class Pipeline
                     if (wfc.currentBuild.result == 'UNSTABLE' ||
                         wfc.currentBuild.result == 'FAILURE')
                     {
-                        print 'Current build result is ' +
+                        wfc.echo 'Current build result is ' +
                             wfc.currentBuild.result + ', exiting early'
 
                         break
