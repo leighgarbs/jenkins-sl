@@ -69,11 +69,11 @@ class StageBuild extends Stage
         def displayName = 'Windows'
         if (buildType == 'debug')
         {
-            displayName = ' Debug'
+            displayName += ' Debug'
         }
         else if (buildType == 'release')
         {
-            displayName = ' Release'
+            displayName += ' Release'
         }
         displayName += ' Build'
 
