@@ -13,10 +13,10 @@ abstract class Stage
     // All stages have names.  This gets displayed in the Jenkins pipeline GUI.
     protected String name
 
+    protected boolean cleanWorkspace
+
     protected boolean runOnLinux
     protected boolean runOnWindows
-
-    protected boolean cleanWorkspace
 
     // Each stage knows how to run itself on these platforms
     abstract boolean runLinux()
@@ -25,9 +25,9 @@ abstract class Stage
     // Constructor
     Stage(def wfc,
           String name,
+          boolean cleanWorkspace = false,
           boolean runOnLinux = true,
-          boolean runOnWindows = true,
-          boolean cleanWorkspace = false)
+          boolean runOnWindows = true)
     {
         this.wfc = wfc
         this.name = name

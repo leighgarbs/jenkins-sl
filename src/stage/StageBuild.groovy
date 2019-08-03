@@ -15,12 +15,12 @@ class StageBuild extends Stage
                String name,
                String buildType,
                String target,
+               boolean cleanWorkspace = false,
                boolean runOnLinux = true,
-               boolean runOnWindows = true,
-               boolean cleanWorkspace = false)
+               boolean runOnWindows = true)
     {
         // Satisfy the parent constructor
-        super(wfc, name, runOnLinux, runOnWindows, cleanWorkspace)
+        super(wfc, name, cleanWorkspace, runOnLinux, runOnWindows)
 
         this.buildType = buildType
         this.target = target

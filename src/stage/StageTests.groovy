@@ -7,12 +7,12 @@ class StageTests extends Stage
     // Constructor
     StageTests(def wfc,
                String name,
+               boolean cleanWorkspace = false,
                boolean runOnLinux = true,
-               boolean runOnWindows = true,
-               boolean cleanWorkspace = false)
+               boolean runOnWindows = true)
     {
         // Satisfy the parent constructor
-        super(wfc, name, runOnLinux, runOnWindows, cleanWorkspace)
+        super(wfc, name, cleanWorkspace, runOnLinux, runOnWindows)
     }
 
     boolean runLinux()
