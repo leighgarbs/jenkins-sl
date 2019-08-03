@@ -1,7 +1,10 @@
 #!/bin/bash -e
 
+# We always want a clean build
 git clean -x -d -f
-../bin/run-cmake --$BUILD_TYPE .
+
+# The single carat capitalizes the first letter of the BUILD_TYPE string
+cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE^} .
 
 # Run the make in such a way that all output goes both to the console and to a
 # file unique to the build type.  Seeing the output in the Jenkins console is
