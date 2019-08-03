@@ -42,8 +42,9 @@ class StageBuild extends Stage
         }
         displayName += ' Build'
 
-        // Report any build warnings.  This should fail the build if any
-        // are discovered.
+        // Report any build warnings on code that's actually in the workspace.
+        // By doing this we're assuming other code like system headers are not
+        // of interest.
         wfc.recordIssues filters: [wfc.includeFile(wfc.env.WORKSPACE)],
         enabledForFailure: true,
         qualityGates: [[threshold: 1,
