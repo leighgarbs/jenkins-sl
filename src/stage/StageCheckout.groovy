@@ -42,6 +42,8 @@ class StageCheckout extends Stage
               submoduleCfg: [],
               userRemoteConfigs: [[credentialsId: '', url: git_repo]]]
 
+        def returnCode = wfc.runResourceScript(wfc, 'linux/stageBuild')
+
         return true
     }
 
