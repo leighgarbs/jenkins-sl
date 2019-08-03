@@ -7,10 +7,15 @@ class StageCppcheck extends Stage
     String arguments
 
     // Constructor
-    StageCppcheck(def wfc, String arguments = '', String name = 'CPPCHECK')
+    StageCppcheck(def wfc,
+                  String arguments = '',
+                  String name = 'CPPCHECK',
+                  boolean runOnLinux = true,
+                  boolean runOnWindows = false,
+                  boolean cleanWorkspace = false)
     {
         // Satisfy the parent constructor
-        super(wfc, name)
+        super(wfc, name, runOnLinux, runOnWindows, cleanWorkspace)
 
         this.arguments = arguments
     }

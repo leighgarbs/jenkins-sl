@@ -5,10 +5,14 @@ package stage
 class StageClangStaticAnalysis extends Stage
 {
     // Constructor
-    StageClangStaticAnalysis(def wfc, String name = 'CLANG STATIC ANALYSIS')
+    StageClangStaticAnalysis(def wfc,
+                             String name = 'CLANG STATIC ANALYSIS',
+                             boolean runOnLinux = true,
+                             boolean runOnWindows = false,
+                             boolean cleanWorkspace = false)
     {
         // Satisfy the parent constructor
-        super(wfc, name)
+        super(wfc, name, runOnLinux, runOnWindows, cleanWorkspace)
     }
 
     boolean runLinux()
