@@ -1,3 +1,8 @@
+@echo off
+
+REM Set up VisualStudio environment
+%VSDEVCMD%
+
 REM We always want a clean build
 git clean -x -d -f
 
