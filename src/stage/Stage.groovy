@@ -75,8 +75,6 @@ abstract class Stage
                         returnCodeLinux = runLinux()
                     }
 
-                    wfc.error('asdfasdfasdfasdf')
-
                 }, Windows: {
 
                     // Run the Windows dimension of this stage on an available
@@ -92,6 +90,8 @@ abstract class Stage
                     }
 
                 }
+
+                wfc.error('asdfasdfasdfasdf')
 
                 // If the body fails outright or caused the current build to go
                 // unstable or fail
