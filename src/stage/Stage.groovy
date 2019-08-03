@@ -37,7 +37,7 @@ abstract class Stage
         wfc.stage(name)
         {
             wfc.echo 'Starting stage ' + name
-            def returnCode = wfc.runResourceScript(wfc, 'linux/stageBuild')
+
             // We don't use only the return code from the stage to determine
             // stage success.  Jenkins tools like the Cppcheck publisher and
             // Valgrind publisher fail or unstable builds in a way that shows up
