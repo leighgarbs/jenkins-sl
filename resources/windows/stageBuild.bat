@@ -6,6 +6,6 @@ call "%VSDEVCMD%"
 REM We always want a clean build
 git clean -x -d -f
 
-cmake -DCMAKE_BUILD_TYPE=Debug .
+cmake -DCMAKE_BUILD_TYPE=Release .
 
-cmake --build . --target "%TARGET%" > build.debug.out
+cmake --build . --target "%TARGET%" > build.release.out
