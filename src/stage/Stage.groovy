@@ -73,8 +73,9 @@ abstract class Stage
                         }
 
                         returnCodeLinux = runLinux()
-                        wfc.error('asdfasdfasdfasdf')
                     }
+
+                    wfc.error('asdfasdfasdfasdf')
 
                 }, Windows: {
 
