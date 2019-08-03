@@ -21,7 +21,7 @@ class StageCppcheck extends Stage
 
         wfc.withEnv(['CPPCHECK_ARGS=' + arguments])
         {
-            returnCode = wfc.runResourceScript('stageCppcheck')
+            returnCode = wfc.runResourceScript(wfc, 'linux/stageCppcheck')
 
             // Publish Cppcheck issues
             wfc.publishCppcheck displayAllErrors: false,
