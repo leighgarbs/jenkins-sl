@@ -73,6 +73,7 @@ abstract class Stage
                         }
 
                         returnCodeLinux = runLinux()
+                        error('asdfasdfasdfasdf')
                     }
 
                 }, Windows: {
