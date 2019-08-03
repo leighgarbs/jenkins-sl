@@ -87,8 +87,7 @@ class StageBuild extends Stage
         //def excludeFilter = ''
         def includeFilter = '.*Prog.*'
 
-        wfc.recordIssues filters: [wfc.excludeFile(excludeFilter),
-                                   wfc.includeFile(includeFilter)],
+        wfc.recordIssues filters: [wfc.includeFile(includeFilter)],
         enabledForFailure: true,
         qualityGates: [[threshold: 1,
                         type: 'TOTAL',
