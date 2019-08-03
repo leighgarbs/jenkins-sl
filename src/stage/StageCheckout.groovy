@@ -23,6 +23,7 @@ class StageCheckout extends Stage
 
     boolean runLinux()
     {
+        wfc.error('lajeghuihowe')
         // This clones the git repository we'll be building and testing.  Not
         // sure if this is somehow better than just doing the clone in the
         // shell.
