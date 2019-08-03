@@ -22,38 +22,71 @@ class StageBuild extends Stage
 
     boolean runLinux()
     {
+        def returnCode = 0
+
         // Use environment variables to get data into the resource script
         wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
         {
-            def returnCode = wfc.runResourceScript(wfc, 'linux/stageBuild')
-
-            // Make how the build warnings display in the GUI a bit prettier
-            def displayName = 'GNU C Compiler (gcc) (' + buildType + ')'
-            if (buildType == 'debug')
-            {
-                displayName = 'Debug Build'
-            }
-            else if (buildType == 'release')
-            {
-                displayName = 'Release Build'
-            }
-
-            // Report any build warnings.  This should fail the build if any
-            // are discovered.
-            wfc.recordIssues enabledForFailure: true,
-            qualityGates: [[threshold: 1,
-                            type: 'TOTAL',
-                            unstable: false]],
-            tools: [wfc.gcc(id: 'gcc-' + buildType,
-                            name: displayName,
-                            pattern: 'make.' + buildType + '.out')]
-
-            return returnCode == 0
+            returnCode = wfc.runResourceScript(wfc, 'linux/stageBuild')
         }
+
+        // Make how the build warnings display in the GUI a bit prettier
+        def displayName = 'Linux'
+        if (buildType == 'debug')
+        {
+            displayName += ' Debug'
+        }
+        else if (buildType == 'release')
+        {
+            displayName += ' Release'
+        }
+        displayName += ' Build'
+
+        // Report any build warnings.  This should fail the build if any
+        // are discovered.
+        wfc.recordIssues enabledForFailure: true,
+        qualityGates: [[threshold: 1,
+                        type: 'TOTAL',
+                        unstable: false]],
+        tools: [wfc.gcc(id: 'gcc-' + buildType,
+                        name: displayName,
+                        pattern: 'build.' + buildType + '.out')]
+
+        return returnCode == 0
     }
 
     boolean runWindows()
     {
-        return true
+        def returnCode = 0
+
+        // Use environment variables to get data into the resource script
+        wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
+        {
+            returnCode = wfc.runResourceScript(wfc, 'windows/stageBuild.bat')
+        }
+
+        // Make how the build warnings display in the GUI a bit prettier
+        def displayName = 'Windows'
+        if (buildType == 'debug')
+        {
+            displayName = ' Debug'
+        }
+        else if (buildType == 'release')
+        {
+            displayName = ' Release'
+        }
+        displayName += ' Build'
+
+        // Report any build warnings.  This should fail the build if any
+        // are discovered.
+        wfc.recordIssues enabledForFailure: true,
+        qualityGates: [[threshold: 1,
+                        type: 'TOTAL',
+                        unstable: false]],
+        tools: [wfc.msBuild(id: 'msbuild-' + buildType,
+                            name: displayName,
+                            pattern: 'build.' + buildType + '.out')]
+
+        return returnCode == 0
     }
 }
