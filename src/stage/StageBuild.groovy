@@ -79,7 +79,13 @@ class StageBuild extends Stage
 
         // Report any build warnings.  This should fail the build if any
         // are discovered.
-        wfc.recordIssues filters: [wfc.includeFile(wfc.env.WORKSPACE.replace('\\', '\\\\') + '\\.*')],
+
+        // Include only warnings originating from code in the workspace.
+        // Assumes we don't care about anything else.
+        //includeFilter = wfc.env.WORKSPACE.replace('\\', '\\\\') + '\\.*'
+        includeFilter = ''
+
+        wfc.recordIssues filters: [wfc.includeFile(includeFilter)],
         enabledForFailure: true,
         qualityGates: [[threshold: 1,
                         type: 'TOTAL',
