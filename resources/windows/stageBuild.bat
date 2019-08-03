@@ -8,4 +8,4 @@ git clean -x -d -f
 
 cmake -DCMAKE_BUILD_TYPE=Debug .
 
-cmake --build . --target "%TARGET%"
+cmake --build . --target "%TARGET%" > build.debug.out
