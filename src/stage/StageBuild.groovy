@@ -82,8 +82,8 @@ class StageBuild extends Stage
 
         // Include only warnings originating from code in the workspace.
         // Assumes we don't care about anything else.
-        def includeFilter = wfc.env.BRANCH_NAME
-        wfc.echo wfc.env.WORKSPACE.replace('\\', '/')
+        def includeFilter =
+            '/' + wfc.echo wfc.env.WORKSPACE.replace('\\', '/') + '/i'
         wfc.recordIssues filters: [wfc.includeFile(includeFilter)],
         enabledForFailure: true,
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
