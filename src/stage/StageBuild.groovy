@@ -100,7 +100,7 @@ class StageBuild extends Stage
 
         // There should be a quality gate here similar to the Linux function
 
-        //return returnCode == 0
-        return true
+        return returnCode == 0
+        //return true
     }
 }
