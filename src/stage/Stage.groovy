@@ -89,7 +89,7 @@ abstract class Stage
                         returnCodeWindows = runWindows()
                     }
 
-                }
+                }, failFast: false
 
                 wfc.error('asdfasdfasdfasdf')
 
