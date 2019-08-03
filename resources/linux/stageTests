@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
 # CTest is configured to run all the tests and return non-zero if any fail
-RET = ${ctest -j 2 .}
+ctest -j 2 .
 
-echo $RET
+echo $?
