@@ -85,7 +85,7 @@ class StageBuild extends Stage
         def excludeFilter = ''
         //def includeFilter = wfc.env.WORKSPACE.replace('\\', '\\\\') + '\\.*'
         //def excludeFilter = ''
-        def includeFilter = 'C:\\Users.*'
+        def includeFilter = 'C:\\\Users.*'
 
         wfc.recordIssues filters: [wfc.excludeFile(excludeFilter),
                                    wfc.includeFile(includeFilter)],
