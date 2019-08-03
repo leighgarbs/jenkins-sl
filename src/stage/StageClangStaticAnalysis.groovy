@@ -15,7 +15,8 @@ class StageClangStaticAnalysis extends Stage
     {
         // This writes clang.debug.out to the workspace so the recordIssues step
         // below can ingest it.
-        def returnCode = wfc.runResourceScript('stageClangStaticAnalysis')
+        def returnCode =
+            wfc.runResourceScript(wfc, 'linux/stageClangStaticAnalysis')
 
         // Publish build warnings
         wfc.recordIssues enabledForFailure: true,

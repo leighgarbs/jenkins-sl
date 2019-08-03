@@ -13,7 +13,7 @@ class StageValgrind extends Stage
 
     boolean runLinux()
     {
-        def returnCode = wfc.runResourceScript('stageValgrind')
+        def returnCode = wfc.runResourceScript(wfc, 'linux/stageValgrind')
 
         // Publish any discovered issues
         wfc.step([$class: 'ValgrindPublisher',
