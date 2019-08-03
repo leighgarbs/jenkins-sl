@@ -13,7 +13,7 @@ class StageTests extends Stage
 
     boolean runLinux()
     {
-        return wfc.runResourceScript('stageTests') == 0
+        return wfc.runResourceScript(wfc, 'linux/stageTests') == 0
     }
 
     boolean runWindows()
