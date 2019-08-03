@@ -83,7 +83,7 @@ class StageBuild extends Stage
         // Include only warnings originating from code in the workspace.
         // Assumes we don't care about anything else.
         //includeFilter = wfc.env.WORKSPACE.replace('\\', '\\\\') + '\\.*'
-        includeFilter = 'C:\\.*'
+        def includeFilter = 'C:\\.*'
 
         wfc.recordIssues filters: [wfc.includeFile(includeFilter)],
         enabledForFailure: true,
