@@ -72,15 +72,7 @@ abstract class Stage
                             wfc.cleanWs()
                         }
 
-                        // Make a directory for all the stages to execute in.
-                        // This leaves the current directory as a safe place to
-                        // put workflow utilities needed during the build.  This
-                        // should prevent those utilities from somehow
-                        // interfering in stage execution.
-                        wfc.dir(wfc.STAGE_DIR)
-                        {
-                            returnCodeLinux = runLinux()
-                        }
+                        returnCodeLinux = runLinux()
                     }
 
                 }, Windows: {
@@ -94,10 +86,7 @@ abstract class Stage
                             wfc.cleanWs()
                         }
 
-                        wfc.dir(wfc.STAGE_DIR)
-                        {
-                            returnCodeWindows = runWindows()
-                        }
+                        returnCodeWindows = runWindows()
                     }
 
                 }
