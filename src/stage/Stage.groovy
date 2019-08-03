@@ -20,11 +20,17 @@ abstract class Stage
     abstract boolean runWindows()
 
     // Constructor
-    Stage(def wfc, String name, boolean cleanWorkspace = false)
+    Stage(def wfc,
+          String name,
+          boolean cleanWorkspace = false,
+          boolean runOnLinux = true,
+          boolean runOnWindows = true)
     {
         this.wfc = wfc
         this.name = name
         this.cleanWorkspace = cleanWorkspace
+        this.runOnLinux = runOnLinux
+        this.runOnWindows = runOnWindows
     }
 
     // Runs the body in the appropriate workflow code context
@@ -60,30 +66,36 @@ abstract class Stage
             {
                 wfc.parallel Linux: {
 
-                    // Run the Linux dimension of this stage on an available
-                    // Linux platform
-                    wfc.node('Linux')
+                    if (runOnLinux)
                     {
-                        if (cleanWorkspace)
+                        // Run the Linux dimension of this stage on an available
+                        // Linux platform
+                        wfc.node('Linux')
                         {
-                            wfc.cleanWs()
-                        }
+                            if (cleanWorkspace)
+                            {
+                                wfc.cleanWs()
+                            }
 
-                        checkForFailure(wfc, !runLinux())
+                            checkForFailure(wfc, !runLinux())
+                        }
                     }
 
                 }, Windows: {
 
-                    // Run the Windows dimension of this stage on an available
-                    // Windows platform
-                    wfc.node('Windows')
+                    if (runOnWindows)
                     {
-                        if (cleanWorkspace)
+                        // Run the Windows dimension of this stage on an
+                        // available Windows platform
+                        wfc.node('Windows')
                         {
-                            wfc.cleanWs()
-                        }
+                            if (cleanWorkspace)
+                            {
+                                wfc.cleanWs()
+                            }
 
-                        checkForFailure(wfc, !runWindows())
+                            checkForFailure(wfc, !runWindows())
+                        }
                     }
 
                 }, failFast: false
