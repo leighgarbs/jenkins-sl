@@ -55,7 +55,6 @@ class StageBuild extends Stage
         // hardcode it.
         wfc.recordIssues filters: [wfc.includeFile('(?i)' + wfc.env.WORKSPACE)],
         enabledForFailure: true,
-        aggregatingResults: true,
         qualityGates: [[threshold: 1,
                         type: 'TOTAL',
                         unstable: false]],
@@ -99,7 +98,6 @@ class StageBuild extends Stage
         wfc.recordIssues filters:
             [wfc.includeFile('(?i)' + wfc.env.WORKSPACE.replace('\\', '/'))],
         enabledForFailure: true,
-        aggregatingResults: true,
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
                             name: displayName,
                             pattern: 'build.' + buildType + '.out')]
