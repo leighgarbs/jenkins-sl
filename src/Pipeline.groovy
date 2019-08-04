@@ -23,13 +23,14 @@ class Pipeline
         // the same list of stages twice.
         ArrayList<String> stageNames = getStageNames()
 
-        wfc.properties([[$class: 'GitLabConnectionProperty',
-                         gitLabConnection: 'gitlab.dmz'],
-                        wfc.pipelineTriggers([[$class: 'GitLabPushTrigger',
-                                           triggerOnPush: true,
-                                           triggerOnMergeRequest: true,
-                                           skipWorkInProgressMergeRequest: true,
-                                           pendingBuildName: stageNames[0]]])])
+        wfc.properties(
+            [[$class: 'GitLabConnectionProperty',
+              gitLabConnection: 'gitlab.dmz'],
+             wfc.pipelineTriggers([[$class: 'GitLabPushTrigger',
+                                    triggerOnPush: true,
+                                    triggerOnMergeRequest: true,
+                                    skipWorkInProgressMergeRequest: true,
+                                    pendingBuildName: stageNames[0]]])])
 
         // This tells Gitlab the names of the stages we'll be running
         wfc.gitlabBuilds(builds: stageNames)
@@ -38,7 +39,8 @@ class Pipeline
             {
                 for (stage in stages)
                 {
-                    // Any errors in this function are handled within it
+                    // Errors are handled inside this run function.  Errors
+                    // don't make their way out here.
                     stage.run()
                 }
             }
