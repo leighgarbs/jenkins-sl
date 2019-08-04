@@ -21,14 +21,14 @@ class StageCheckout extends Stage
 
     boolean runLinux()
     {
-        // Nothing platform-specific about this stage so we define it in once
+        // Nothing platform-specific about this stage so we define it in one
         // place
         return runAllPlatforms()
     }
 
     boolean runWindows()
     {
-        // Nothing platform-specific about this stage so we define it in once
+        // Nothing platform-specific about this stage so we define it in one
         // place
         return runAllPlatforms()
     }
