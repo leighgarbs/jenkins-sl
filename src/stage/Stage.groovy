@@ -68,6 +68,19 @@ abstract class Stage
                 // serially.  This stage runs on all supported platforms in
                 // parallel here.
 
+                // Annoyingly, when failing stages with the "error" function, it
+                // seems necessary to do it inside the parallel construct.  This
+                // means we have to check for failure in each branch of the
+                // parallel construct, rather than once outside the construct.
+                // This is why "checkForFailure()" exists.  "error()" outside
+                // the parallel construct does stop the pipeline, but it doesn't
+                // display the "failed" stage graphic with the red border in the
+                // pipeline GUI, and I want that.
+
+                // Would be nice if this parallel construct could be constructed
+                // dynamically somehow, we have to repeat a lot of content with
+                // it like this.
+
                 wfc.parallel Linux: {
 
                     if (runOnLinux)
