@@ -24,7 +24,12 @@ class Pipeline
         ArrayList<String> stageNames = getStageNames()
 
         wfc.properties([[$class: 'GitLabConnectionProperty',
-                         gitLabConnection: 'gitlab.dmz']])
+                         gitLabConnection: 'gitlab.dmz'],
+                        wfc.pipelineTriggers([[$class: 'GitLabPushTrigger',
+                                           triggerOnPush: true,
+                                           triggerOnMergeRequest: true,
+                                           skipWorkInProgressMergeRequest: true,
+                                           pendingBuildName: stageNames[0]]])])
 
         // This tells Gitlab the names of the stages we'll be running
         wfc.gitlabBuilds(builds: stageNames)
