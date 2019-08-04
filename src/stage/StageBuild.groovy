@@ -56,9 +56,6 @@ class StageBuild extends Stage
         wfc.recordIssues filters:
             [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE)],
         enabledForFailure: true,
-        qualityGates: [[threshold: 1,
-                        type: 'TOTAL',
-                        unstable: false]],
         tools: [wfc.gcc(id: 'gcc-' + buildType,
                         name: displayName,
                         pattern: 'build.' + buildType + '.out')]
@@ -88,9 +85,6 @@ class StageBuild extends Stage
         }
         displayName += ' Build'
 
-        // Report any build warnings.  This should fail the build if any
-        // are discovered.
-
         // Include only warnings originating from code in the workspace.  The
         // workspace pattern has to be matched case insensitive because Jenkins
         // stores the pattern in all lowercase for some reason.  This seems like
@@ -102,9 +96,6 @@ class StageBuild extends Stage
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
                             name: displayName,
                             pattern: 'build.' + buildType + '.out')]
-
-        // There should be a quality gate here similar to the Linux function,
-        // add one after the windows build is fixed
 
         // Remove the explicit return true after the Windows build is fixed
         //return returnCode == 0
