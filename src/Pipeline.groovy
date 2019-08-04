@@ -41,6 +41,11 @@ class Pipeline
         {
             wfc.timestamps
             {
+                // We don't allocate nodes for anything here.  The stages
+                // allocate nodes for themselves to run on (in their run()
+                // function.  The stages run serially and allocate nodes for all
+                // supported platforms in parallel.
+
                 for (stage in stages)
                 {
                     // Errors are handled inside this run function.  Errors

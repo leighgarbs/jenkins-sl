@@ -13,8 +13,10 @@ abstract class Stage
     // All stages have names.  This gets displayed in the Jenkins pipeline GUI.
     protected String name
 
+    // If true this stage will clean the workspace before it runs
     protected boolean cleanWorkspace
 
+    // This stage will run on these platforms if these flags are set
     protected boolean runOnLinux
     protected boolean runOnWindows
 
@@ -53,20 +55,19 @@ abstract class Stage
             // in "currentBuild.result".  They might do this if they're
             // configured to fail or unstable builds that were unacceptable to
             // them in some way (for example, too many static analysis issues
-            // detected).
-
-            // If the stage body returns unsuccessfully then mark the build as
-            // failed.  There isn't a return code for unstable, but at this
-            // point currentBuild.result will be set to unstable if the stage is
-            // unstable.  By potentially setting the build result to failed here
-            // we may override an unstable build result with a failed build
-            // result.  That seems fine since we naturally want the build result
-            // to represent the worst outcome.
+            // detected).  The "checkForFailure" function is designed to look
+            // for all the different ways a stage can fail and then do the right
+            // thing when any of those ways happen.
 
             wfc.gitlabCommitStatus(
                 connection: wfc.gitLabConnection('gitlab.dmz'),
                 name:       name)
             {
+                // It's at this point where we introduce parallelization.
+                // Besides this "parallel" construct the whole pipeline runs
+                // serially.  This stage runs on all supported platforms in
+                // parallel here.
+
                 wfc.parallel Linux: {
 
                     if (runOnLinux)
@@ -80,6 +81,9 @@ abstract class Stage
                                 wfc.cleanWs()
                             }
 
+                            // runLinux() is where the Linux-specific bit of
+                            // this stage runs.  checkForFailure() fails the
+                            // stage if anything went wrong.
                             checkForFailure(wfc, !runLinux())
                         }
                     }
@@ -97,11 +101,17 @@ abstract class Stage
                                 wfc.cleanWs()
                             }
 
+                            // runWindows() is where the Windows-specific bit of
+                            // this stage runs.  checkForFailure() fails the
+                            // stage if anything went wrong.
                             checkForFailure(wfc, !runWindows())
                         }
                     }
 
                 }, failFast: false
+
+                // If other platforms were supported they would be added after
+                // the Windows bracket in their own bracket, before the failFast
             }
 
             wfc.echo 'Stage ' + name + ' complete'
@@ -115,8 +125,7 @@ abstract class Stage
             wfc.currentBuild.result == 'FAILURE')
         {
             // Gitlab doesn't have a commit status for unstable
-            wfc.updateGitlabCommitStatus(name:  name,
-                                         state: 'failed')
+            wfc.updateGitlabCommitStatus(name: name, state: 'failed')
 
             wfc.error('Stage ' + name + ' failed')
         }
