@@ -53,7 +53,8 @@ class StageBuild extends Stage
         // stores the pattern in all lowercase for some reason.  This seems like
         // something a user could maybe want to configure but for now just
         // hardcode it.
-        wfc.recordIssues filters: [wfc.includeFile('(?i)' + wfc.env.WORKSPACE)],
+        wfc.recordIssues filters:
+            [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE)],
         enabledForFailure: true,
         qualityGates: [[threshold: 1,
                         type: 'TOTAL',
@@ -96,7 +97,7 @@ class StageBuild extends Stage
         // something a user could maybe want to configure but for now just
         // hardcode it.
         wfc.recordIssues filters:
-            [wfc.includeFile('(?i)' + wfc.env.WORKSPACE.replace('\\', '/'))],
+            [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE.replace('\\', '/'))],
         enabledForFailure: true,
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
                             name: displayName,
