@@ -98,7 +98,9 @@ class StageBuild extends Stage
         // hardcode it.
         wfc.recordIssues filters:
             [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE.replace('\\', '/')),
-             wfc.excludeCategory('C4820')],
+             wfc.excludeCategory('C4820'),
+             wfc.excludeCategory('C4710'),
+             wfc.excludeCategory('C4711')],
         enabledForFailure: true,
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
                             name: displayName,
