@@ -97,8 +97,6 @@ class StageBuild extends Stage
                             name: displayName,
                             pattern: 'build.' + buildType + '.out')]
 
-        // Remove the explicit return true after the Windows build is fixed
-        //return returnCode == 0
-        return true
+        return returnCode == 0
     }
 }
