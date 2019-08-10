@@ -11,4 +11,4 @@ cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE .
 # handy, but we also need to analyze the output from builds of multiple types in
 # the same pipeline branch independently.  It's difficult to do that when all
 # the output went to the same console.
-make -j 8 -B $TARGET 2>&1 | tee build.$BUILD_TYPE.out
+make -j 8 -B $TARGET 2>&1 | tee buildlog.$BUILD_TYPE.txt
