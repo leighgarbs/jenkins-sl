@@ -58,7 +58,7 @@ class StageBuild extends Stage
         enabledForFailure: true,
         tools: [wfc.gcc(id: 'gcc-' + buildType,
                         name: displayName,
-                        pattern: 'build.' + buildType + '.out')]
+                        pattern: 'buildlog.' + buildType + '.txt')]
 
         return returnCode == 0
     }
@@ -95,7 +95,7 @@ class StageBuild extends Stage
         enabledForFailure: true,
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
                             name: displayName,
-                            pattern: 'build.' + buildType + '.out')]
+                            pattern: 'buildlog.' + buildType + '.txt')]
 
         return returnCode == 0
     }
