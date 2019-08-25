@@ -6,6 +6,8 @@ call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tool
 REM We always want a clean build
 git clean -x -d -f
 
-cmake -DCMAKE_BUILD_TYPE=%BUILD_TYPE% .
+REM Set up an NMake build
+cmake -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -G "NMake Makefiles" .
 
-cmake --build . --target "%TARGET%" > buildlog.%BUILD_TYPE%.txt
+REM Actually run the build with NMake
+nmake "%TARGET%" > buildlog.%BUILD_TYPE%.txt
