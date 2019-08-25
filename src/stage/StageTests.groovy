@@ -22,6 +22,6 @@ class StageTests extends Stage
 
     boolean runWindows()
     {
-        return true
+        return wfc.runResourceScript(wfc, 'windows/stageTests.bat') == 0
     }
 }
