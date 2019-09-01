@@ -56,7 +56,7 @@ class StageBuild extends Stage
         wfc.recordIssues filters:
             [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE)],
         enabledForFailure: true,
-        referenceJobName: 'origin/master',
+        referenceJobName: 'master',
         tools: [wfc.gcc(id: 'gcc-' + buildType,
                         name: displayName,
                         pattern: 'buildlog.' + buildType + '.txt')]
@@ -94,7 +94,7 @@ class StageBuild extends Stage
         wfc.recordIssues filters:
             [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE.replace('\\', '/'))],
         enabledForFailure: true,
-        referenceJobName: 'origin/master',
+        referenceJobName: 'master',
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
                             name: displayName,
                             pattern: 'buildlog.' + buildType + '.txt')]
