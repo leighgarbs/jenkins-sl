@@ -35,12 +35,14 @@ class StageCppcheck extends Stage
             displayStyleSeverity: true,
             displayWarningSeverity: true,
             failureThreshold: '0',
-            severityInformation: false,
             pattern: 'cppcheck.xml',
+            severityError: true,
+            severityInformation: false,
             severityNoCategory: false,
             severityPerformance: false,
             severityPortability: false,
-            severityStyle: false
+            severityStyle: false,
+            severityWarning: true
         }
 
         return returnCode == 0
