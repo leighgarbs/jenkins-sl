@@ -7,21 +7,25 @@ class StageCppcheck extends Stage
     String arguments
 
     // Constructor
-    StageCppcheck(def wfc, String arguments = '', String name = 'CPPCHECK')
+    StageCppcheck(def wfc,
+                  String arguments = '',
+                  boolean cleanWorkspace = false,
+                  boolean runOnLinux = true,
+                  boolean runOnWindows = false)
     {
         // Satisfy the parent constructor
-        super(wfc, name)
+        super(wfc, 'CPPCHECK', cleanWorkspace, runOnLinux, runOnWindows)
 
         this.arguments = arguments
     }
 
-    boolean body()
+    boolean runLinux()
     {
         def returnCode = 0
 
         wfc.withEnv(['CPPCHECK_ARGS=' + arguments])
         {
-            returnCode = wfc.runResourceScript('stageCppcheck')
+            returnCode = wfc.runResourceScript(wfc, 'linux/stageCppcheck')
 
             // Publish Cppcheck issues
             wfc.publishCppcheck displayAllErrors: false,
@@ -40,5 +44,10 @@ class StageCppcheck extends Stage
         }
 
         return returnCode == 0
+    }
+
+    boolean runWindows()
+    {
+        return true
     }
 }

@@ -2,8 +2,8 @@
 
 package stage
 
-// Stages are not specific to platforms.  At a high level each stage is expected
-// to be aware of the platform it's running on and adjust itself accordingly.
+// Stages are not specific to platforms.  At a high level each stage is aware of
+// of the platform it's running on and adjusts itself accordingly.
 abstract class Stage
 {
     // Reference to the workflow context (wfc) the Jenkinsfile content runs in.
@@ -13,39 +13,39 @@ abstract class Stage
     // All stages have names.  This gets displayed in the Jenkins pipeline GUI.
     protected String name
 
-    // What each stage does specifically is defined in derived classes
-    abstract boolean body()
+    // If true this stage will clean the workspace before it runs
+    protected boolean cleanWorkspace
+
+    // This stage will run on these platforms if these flags are set
+    protected boolean runOnLinux
+    protected boolean runOnWindows
+
+    // Each stage knows how to run itself on these platforms
+    abstract boolean runLinux()
+    abstract boolean runWindows()
 
     // Constructor
-    Stage(def wfc, String name)
+    Stage(def wfc,
+          String name,
+          boolean cleanWorkspace = false,
+          boolean runOnLinux = true,
+          boolean runOnWindows = true)
     {
         this.wfc = wfc
         this.name = name
+        this.cleanWorkspace = cleanWorkspace
+        this.runOnLinux = runOnLinux
+        this.runOnWindows = runOnWindows
     }
 
     // Runs the body in the appropriate workflow code context
     void run()
     {
-        def platformName = ''
-
-        if (wfc.isUnix())
-        {
-            // MacOS will also cause isUnix() to return true, but we don't
-            // support automated MacOS builds yet
-            platformName = 'Linux'
-        }
-        else
-        {
-            // The only other platform we support automated builds for is
-            // Windows
-            platformName = 'Windows'
-        }
-
         // This is where the stage name that shows up in the Jenkins GUI
         // pipeline widget is actually set.  Stage names should be unique.  It
         // is possible to give multiple stages the same name but the Jenkins GUI
         // pipeline widget will bug out if this is done.
-        wfc.stage(name + ' (' + platformName + ')')
+        wfc.stage(name)
         {
             wfc.echo 'Starting stage ' + name
 
@@ -55,36 +55,92 @@ abstract class Stage
             // in "currentBuild.result".  They might do this if they're
             // configured to fail or unstable builds that were unacceptable to
             // them in some way (for example, too many static analysis issues
-            // detected).
-
-            // If the stage body returns unsuccessfully then mark the build as
-            // failed.  There isn't a return code for unstable, but at this
-            // point currentBuild.result will be set to unstable if the stage is
-            // unstable.  By potentially setting the build result to failed here
-            // we may override an unstable build result with a failed build
-            // result.  That seems fine since we naturally want the build result
-            // to represent the worst outcome.
+            // detected).  The "checkForFailure" function is designed to look
+            // for all the different ways a stage can fail and then do the right
+            // thing when any of those ways happen.
 
             wfc.gitlabCommitStatus(
                 connection: wfc.gitLabConnection('gitlab.dmz'),
                 name:       name)
             {
-                // If the body fails outright or caused the current build to go
-                // unstable or fail
-                if (!body() ||
-                    wfc.currentBuild.result == 'UNSTABLE' ||
-                    wfc.currentBuild.result == 'FAILURE')
-                {
-                    // Gitlab doesn't have a commit status for unstable
-                    wfc.updateGitlabCommitStatus(name:  name,
-                                                 state: 'failed')
+                // It's at this point where we introduce parallelization.
+                // Besides this "parallel" construct the whole pipeline runs
+                // serially.  This stage runs on all supported platforms in
+                // parallel here.
 
-                    wfc.error(
-                        'Stage ' + name + ' failed on ' + platformName)
-                }
+                // Annoyingly, when failing stages with the "error" function, it
+                // seems necessary to do it inside the parallel construct.  This
+                // means we have to check for failure in each branch of the
+                // parallel construct, rather than once outside the construct.
+                // This is why "checkForFailure()" exists.  "error()" outside
+                // the parallel construct does stop the pipeline, but it doesn't
+                // display the "failed" stage graphic with the red border in the
+                // pipeline GUI, and I want that.
+
+                // Would be nice if this parallel construct could be constructed
+                // dynamically somehow, we have to repeat a lot of content with
+                // it like this.
+
+                wfc.parallel Linux: {
+
+                    if (runOnLinux)
+                    {
+                        // Run the Linux dimension of this stage on an available
+                        // Linux platform
+                        wfc.node('Linux')
+                        {
+                            if (cleanWorkspace)
+                            {
+                                wfc.cleanWs()
+                            }
+
+                            // runLinux() is where the Linux-specific bit of
+                            // this stage runs.  checkForFailure() fails the
+                            // stage if anything went wrong.
+                            checkForFailure(wfc, !runLinux())
+                        }
+                    }
+
+                }, Windows: {
+
+                    if (runOnWindows)
+                    {
+                        // Run the Windows dimension of this stage on an
+                        // available Windows platform
+                        wfc.node('Windows')
+                        {
+                            if (cleanWorkspace)
+                            {
+                                wfc.cleanWs()
+                            }
+
+                            // runWindows() is where the Windows-specific bit of
+                            // this stage runs.  checkForFailure() fails the
+                            // stage if anything went wrong.
+                            checkForFailure(wfc, !runWindows())
+                        }
+                    }
+
+                }, failFast: false
+
+                // If other platforms were supported they would be added after
+                // the Windows bracket in their own bracket, before the failFast
             }
 
             wfc.echo 'Stage ' + name + ' complete'
+        }
+    }
+
+    void checkForFailure(def wfc, boolean failed)
+    {
+        if (failed ||
+            wfc.currentBuild.result == 'UNSTABLE' ||
+            wfc.currentBuild.result == 'FAILURE')
+        {
+            // Gitlab doesn't have a commit status for unstable
+            wfc.updateGitlabCommitStatus(name: name, state: 'failed')
+
+            wfc.error('Stage ' + name + ' failed')
         }
     }
 }

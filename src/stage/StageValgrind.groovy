@@ -5,15 +5,18 @@ package stage
 class StageValgrind extends Stage
 {
     // Constructor
-    StageValgrind(def wfc, String name = 'VALGRIND')
+    StageValgrind(def wfc,
+                  boolean cleanWorkspace = false,
+                  boolean runOnLinux = true,
+                  boolean runOnWindows = false)
     {
         // Satisfy the parent constructor
-        super(wfc, name)
+        super(wfc, 'VALGRIND', cleanWorkspace, runOnLinux, runOnWindows)
     }
 
-    boolean body()
+    boolean runLinux()
     {
-        def returnCode = wfc.runResourceScript('stageValgrind')
+        def returnCode = wfc.runResourceScript(wfc, 'linux/stageValgrind')
 
         // Publish any discovered issues
         wfc.step([$class: 'ValgrindPublisher',
@@ -28,5 +31,10 @@ class StageValgrind extends Stage
                   sourceSubstitutionPaths: ''])
 
         return returnCode == 0
+    }
+
+    boolean runWindows()
+    {
+        return true
     }
 }
