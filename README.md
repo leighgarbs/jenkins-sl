@@ -16,5 +16,9 @@ For personal project use.  A Jenkins shared library defining continuous integrat
   * Valgrind (via [CTest memcheck](https://cmake.org/cmake/help/latest/manual/ctest.1.html#ctest-memcheck-step))
   * [Clang static analyzer](https://clang-analyzer.llvm.org/)
 
+## Goals ##
+  * Increased customization
+  * Decreased dependence on my specific environment
+
 ## Style ##
 * [Groovy-Emacs-Modes](https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes) Emacs major mode for Groovy
