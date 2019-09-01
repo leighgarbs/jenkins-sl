@@ -2,7 +2,7 @@
   Jenkins shared library for continuous integration and testing of C++ projects
 ===============================================================
 
-For personal project use.  A Jenkins shared library defining continuous integration and testing scripts for C++ projects.
+For personal project use.  A Jenkins shared library defining a continuous integration and testing pipeline framework for C++ projects.
 
 ## Features ##
 * Designed for use in [pipelines](https://jenkins.io/doc/book/pipeline/)
