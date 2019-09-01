@@ -1,5 +1,5 @@
 **[jenkins-sl](https://github.com/leighgarbs/jenkins-sl)** -
-  Jenkins shared library for continuous integration and testing of C++
+  Jenkins shared library for continuous integration and testing of C++ projects
 ===============================================================
 
 For personal project use.  A Jenkins shared library defining continuous integration and testing scripts for C++ projects.
