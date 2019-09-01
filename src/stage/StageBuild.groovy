@@ -57,6 +57,7 @@ class StageBuild extends Stage
             [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE)],
         enabledForFailure: true,
         referenceJobName: 'tools-cpp/master',
+        ignoreQualityGate: true,
         tools: [wfc.gcc(id: 'gcc-' + buildType,
                         name: displayName,
                         pattern: 'buildlog.' + buildType + '.txt')]
@@ -95,6 +96,7 @@ class StageBuild extends Stage
             [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE.replace('\\', '/'))],
         enabledForFailure: true,
         referenceJobName: 'tools-cpp/master',
+        ignoreQualityGate: true,
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
                             name: displayName,
                             pattern: 'buildlog.' + buildType + '.txt')]
