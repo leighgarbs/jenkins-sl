@@ -5,17 +5,25 @@ package stage
 class StageClangStaticAnalysis extends Stage
 {
     // Constructor
-    StageClangStaticAnalysis(def wfc, String name = 'CLANG STATIC ANALYSIS')
+    StageClangStaticAnalysis(def wfc,
+                             boolean cleanWorkspace = false,
+                             boolean runOnLinux = true,
+                             boolean runOnWindows = false)
     {
         // Satisfy the parent constructor
-        super(wfc, name)
+        super(wfc,
+              'CLANG STATIC ANALYSIS',
+              cleanWorkspace,
+              runOnLinux,
+              runOnWindows)
     }
 
-    boolean body()
+    boolean runLinux()
     {
         // This writes clang.debug.out to the workspace so the recordIssues step
         // below can ingest it.
-        def returnCode = wfc.runResourceScript('stageClangStaticAnalysis')
+        def returnCode =
+            wfc.runResourceScript(wfc, 'linux/stageClangStaticAnalysis')
 
         // Publish build warnings
         wfc.recordIssues enabledForFailure: true,
@@ -26,5 +34,10 @@ class StageClangStaticAnalysis extends Stage
                           pattern: 'clang.debug.out')]
 
         return returnCode == 0
+    }
+
+    boolean runWindows()
+    {
+        return true
     }
 }

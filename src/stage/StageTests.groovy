@@ -5,14 +5,23 @@ package stage
 class StageTests extends Stage
 {
     // Constructor
-    StageTests(def wfc, String name)
+    StageTests(def wfc,
+               String name,
+               boolean cleanWorkspace = false,
+               boolean runOnLinux = true,
+               boolean runOnWindows = true)
     {
         // Satisfy the parent constructor
-        super(wfc, name)
+        super(wfc, name, cleanWorkspace, runOnLinux, runOnWindows)
     }
 
-    boolean body()
+    boolean runLinux()
     {
-        return wfc.runResourceScript('stageTests') == 0
+        return wfc.runResourceScript(wfc, 'linux/stageTests') == 0
+    }
+
+    boolean runWindows()
+    {
+        return wfc.runResourceScript(wfc, 'windows/stageTests.bat') == 0
     }
 }

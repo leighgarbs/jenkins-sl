@@ -11,46 +11,92 @@ class StageBuild extends Stage
     String target
 
     // Constructor
-    StageBuild(def wfc, String name, String buildType, String target)
+    StageBuild(def wfc,
+               String name,
+               String buildType,
+               String target,
+               boolean cleanWorkspace = false,
+               boolean runOnLinux = true,
+               boolean runOnWindows = true)
     {
         // Satisfy the parent constructor
-        super(wfc, name)
+        super(wfc, name, cleanWorkspace, runOnLinux, runOnWindows)
 
         this.buildType = buildType
         this.target = target
     }
 
-    boolean body()
+    boolean runLinux()
     {
+        def returnCode = 0
+
         // Use environment variables to get data into the resource script
         wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
         {
-            // Actually run the build.  This tees output to a file that is used
-            // by the reporting step below
-            def returnCode = wfc.runResourceScript('stageBuild')
-
-            // Make how the build warnings display in the GUI a bit prettier
-            def displayName = 'GNU C Compiler (gcc) (' + buildType + ')'
-            if (buildType == 'debug')
-            {
-                displayName = 'Debug Build'
-            }
-            else if (buildType == 'release')
-            {
-                displayName = 'Release Build'
-            }
-
-            // Report any build warnings.  This should fail the build if any
-            // are discovered.
-            wfc.recordIssues enabledForFailure: true,
-            qualityGates: [[threshold: 1,
-                            type: 'TOTAL',
-                            unstable: false]],
-            tools: [wfc.gcc(id: 'gcc-' + buildType,
-                            name: displayName,
-                            pattern: 'make.' + buildType + '.out')]
-
-            return returnCode == 0
+            returnCode = wfc.runResourceScript(wfc, 'linux/stageBuild')
         }
+
+        // Make how the build warnings display in the GUI a bit prettier
+        def displayName = 'Linux'
+        if (buildType == 'debug')
+        {
+            displayName += ' Debug'
+        }
+        else if (buildType == 'release')
+        {
+            displayName += ' Release'
+        }
+        displayName += ' Build'
+
+        // Include only warnings originating from code in the workspace.  The
+        // workspace pattern has to be matched case insensitive because Jenkins
+        // stores the pattern in all lowercase for some reason.  This seems like
+        // something a user could maybe want to configure but for now just
+        // hardcode it.
+        wfc.recordIssues filters:
+            [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE)],
+        enabledForFailure: true,
+        tools: [wfc.gcc(id: 'gcc-' + buildType,
+                        name: displayName,
+                        pattern: 'buildlog.' + buildType + '.txt')]
+
+        return returnCode == 0
+    }
+
+    boolean runWindows()
+    {
+        def returnCode = 0
+
+        // Use environment variables to get data into the resource script
+        wfc.withEnv(['BUILD_TYPE=' + buildType, 'TARGET=' + target])
+        {
+            returnCode = wfc.runResourceScript(wfc, 'windows/stageBuild.bat')
+        }
+
+        // Make how the build warnings display in the GUI a bit prettier
+        def displayName = 'Windows'
+        if (buildType == 'debug')
+        {
+            displayName += ' Debug'
+        }
+        else if (buildType == 'release')
+        {
+            displayName += ' Release'
+        }
+        displayName += ' Build'
+
+        // Include only warnings originating from code in the workspace.  The
+        // workspace pattern has to be matched case insensitive because Jenkins
+        // stores the pattern in all lowercase for some reason.  This seems like
+        // something a user could maybe want to configure but for now just
+        // hardcode it.
+        wfc.recordIssues filters:
+            [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE.replace('\\', '/'))],
+        enabledForFailure: true,
+        tools: [wfc.msBuild(id: 'msbuild-' + buildType,
+                            name: displayName,
+                            pattern: 'buildlog.' + buildType + '.txt')]
+
+        return returnCode == 0
     }
 }

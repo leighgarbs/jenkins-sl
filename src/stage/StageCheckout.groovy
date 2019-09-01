@@ -7,15 +7,33 @@ class StageCheckout extends Stage
     String git_repo
 
     // Constructor
-    StageCheckout(def wfc, String git_repo, String name = 'CHECKOUT')
+    StageCheckout(def wfc,
+                  String git_repo,
+                  boolean cleanWorkspace = false,
+                  boolean runOnLinux = true,
+                  boolean runOnWindows = true)
     {
         // Satisfy the parent constructor
-        super(wfc, name)
+        super(wfc, 'CHECKOUT', cleanWorkspace, runOnLinux, runOnWindows)
 
         this.git_repo = git_repo
     }
 
-    boolean body()
+    boolean runLinux()
+    {
+        // Nothing platform-specific about this stage so we define it in one
+        // place
+        return runAllPlatforms()
+    }
+
+    boolean runWindows()
+    {
+        // Nothing platform-specific about this stage so we define it in one
+        // place
+        return runAllPlatforms()
+    }
+
+    boolean runAllPlatforms()
     {
         // This clones the git repository we'll be building and testing.  Not
         // sure if this is somehow better than just doing the clone in the
