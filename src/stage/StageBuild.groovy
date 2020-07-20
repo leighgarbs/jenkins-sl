@@ -48,13 +48,9 @@ class StageBuild extends Stage
         }
         displayName += ' Build'
 
-        // Include only warnings originating from code in the workspace.  The
-        // workspace pattern has to be matched case insensitive because Jenkins
-        // stores the pattern in all lowercase for some reason.  This seems like
-        // something a user could maybe want to configure but for now just
-        // hardcode it.
-        wfc.recordIssues filters:
-            [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE)],
+        // Include only warnings originating from code in the workspace.  This seems like
+        // something a user could maybe want to configure but for now just hardcode it.
+        wfc.recordIssues filters: [wfc.excludeFile('\\.\\./.*')],
         enabledForFailure: true,
         tools: [wfc.gcc(id: 'gcc-' + buildType,
                         name: displayName,
@@ -85,13 +81,11 @@ class StageBuild extends Stage
         }
         displayName += ' Build'
 
-        // Include only warnings originating from code in the workspace.  The
-        // workspace pattern has to be matched case insensitive because Jenkins
-        // stores the pattern in all lowercase for some reason.  This seems like
-        // something a user could maybe want to configure but for now just
-        // hardcode it.
-        wfc.recordIssues filters:
-            [wfc.includeFile('(?i)^' + wfc.env.WORKSPACE.replace('\\', '/'))],
+        // Include only warnings originating from code in the workspace.  The workspace pattern
+        // has to be matched case insensitive because Jenkins stores the pattern in all
+        // lowercase for some reason.  This seems like something a user could maybe want to
+        // configure but for now just hardcode it.
+        wfc.recordIssues filters: [wfc.excludeFile('\\.\\./.*')],
         enabledForFailure: true,
         tools: [wfc.msBuild(id: 'msbuild-' + buildType,
                             name: displayName,
