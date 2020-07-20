@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
-# The embedded cat command gets all the ignore files out of .cppcheck-ignore and
-# onto the command line properly
-cppcheck --enable=all --std=posix --force --xml --xml-version=2 --inline-suppr `cat .cppcheck-ignore | sed "s/.*/-i &/" | tr "\n" " "` $CPPCHECK_ARGS . 2> cppcheck.xml
+# The embedded cat command gets all the ignore files out of .cppcheck-ignore and onto the
+# command line properly
+cppcheck --enable=all --std=posix --force --xml --xml-version=2 --inline-suppr \
+         $(cat .cppcheck-ignore | sed "s/.*/-i &/" | tr "\n" " ") ${CPPCHECK_ARGS} . \
+         2> cppcheck.xml

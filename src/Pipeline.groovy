@@ -4,8 +4,8 @@ import stage.Stage
 
 class Pipeline
 {
-    // Reference to the workflow context (wfc) the Jenkinsfile content runs in.
-    // I don't know how to statically define this yet so "def" will have to do.
+    // Reference to the workflow context (wfc) the Jenkinsfile content runs in.  I don't know
+    // how to statically define this yet so "def" will have to do.
     protected def wfc
 
     private ArrayList<Stage> stages
@@ -18,9 +18,8 @@ class Pipeline
 
     void run()
     {
-        // We have to have a list of all the stage names before we run any of
-        // the stages.  This is a little awkward since it forces us to loop over
-        // the same list of stages twice.
+        // We have to have a list of all the stage names before we run any of the stages.  This
+        // is a little awkward since it forces us to loop over the same list of stages twice.
         ArrayList<String> stageNames = []
         for (stage in stages)
         {
@@ -41,15 +40,14 @@ class Pipeline
         {
             wfc.timestamps
             {
-                // We don't allocate nodes for anything here.  The stages
-                // allocate nodes for themselves to run on (in their run()
-                // function.  The stages run serially and allocate nodes for all
-                // supported platforms in parallel.
+                // We don't allocate nodes for anything here.  The stages allocate nodes for
+                // themselves to run on (in their run() function.  The stages run serially and
+                // allocate nodes for all supported platforms in parallel.
 
                 for (stage in stages)
                 {
-                    // Errors are handled inside this run function.  Errors
-                    // don't make their way out here.
+                    // Errors are handled inside this run function.  Errors don't make their
+                    // way out here.
                     stage.run()
                 }
             }

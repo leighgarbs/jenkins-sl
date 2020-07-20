@@ -3,4 +3,4 @@
 # CTest is configured to run all the tests and return non-zero if any fail
 ctest -j 2 .
 
-echo $?
+echo ${?}
