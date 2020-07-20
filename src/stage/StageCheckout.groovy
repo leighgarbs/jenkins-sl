@@ -21,23 +21,20 @@ class StageCheckout extends Stage
 
     boolean runLinux()
     {
-        // Nothing platform-specific about this stage so we define it in one
-        // place
+        // Nothing platform-specific about this stage so we define it in one place
         return runAllPlatforms()
     }
 
     boolean runWindows()
     {
-        // Nothing platform-specific about this stage so we define it in one
-        // place
+        // Nothing platform-specific about this stage so we define it in one place
         return runAllPlatforms()
     }
 
     boolean runAllPlatforms()
     {
-        // This clones the git repository we'll be building and testing.  Not
-        // sure if this is somehow better than just doing the clone in the
-        // shell.
+        // This clones the git repository we'll be building and testing.  Not sure if this is
+        // somehow better than just doing the clone in the shell.
         wfc.checkout changelog: true,
         poll: true,
         scm: [$class: 'GitSCM',

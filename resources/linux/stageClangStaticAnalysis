@@ -3,14 +3,13 @@
 # We always want a clean build
 git clean -x -d -f
 
-# The Clang docs recommend always running on a debug build
-# The single carat capitalizes the first letter of the BUILD_TYPE string
+# The Clang docs recommend always running on a debug build.
 scan-build cmake -DCMAKE_BUILD_TYPE=Debug .
 
-# Run clang in such a way that all output goes both to the console and to a
-# file.  Seeing the output in the Jenkins console is handy, but we also need to
-# analyze the output and having only clang output in a separate file is a clean
-# way to do that.
+# Run clang in such a way that all output goes both to the console and to a file.  Seeing the
+# output in the Jenkins console is handy, but we also need to analyze the output and having
+# only clang output in a separate file is a clean way to do that.
 
 # Use --status-bugs to make this return 1 when issues are discovered
-scan-build -o clangScanBuildReports -v -v --use-cc clang --use-analyzer=/usr/bin/clang make -j 8 -B tests 2>&1 | tee clang.debug.out
+scan-build -o clangScanBuildReports -v -v --use-cc clang --use-analyzer=/usr/bin/clang \
+           make -j 8 -B tests 2>&1 | tee clang.debug.out

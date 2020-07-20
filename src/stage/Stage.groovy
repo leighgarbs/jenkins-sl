@@ -2,12 +2,12 @@
 
 package stage
 
-// Stages are not specific to platforms.  At a high level each stage is aware of
-// of the platform it's running on and adjusts itself accordingly.
+// Stages are not specific to platforms.  At a high level each stage is aware of of the
+// platform it's running on and adjusts itself accordingly.
 abstract class Stage
 {
-    // Reference to the workflow context (wfc) the Jenkinsfile content runs in.
-    // I don't know how to statically define this yet so "def" will have to do.
+    // Reference to the workflow context (wfc) the Jenkinsfile content runs in.  I don't know
+    // how to statically define this yet so "def" will have to do.
     protected def wfc
 
     // All stages have names.  This gets displayed in the Jenkins pipeline GUI.
@@ -41,52 +41,45 @@ abstract class Stage
     // Runs the body in the appropriate workflow code context
     void run()
     {
-        // This is where the stage name that shows up in the Jenkins GUI
-        // pipeline widget is actually set.  Stage names should be unique.  It
-        // is possible to give multiple stages the same name but the Jenkins GUI
-        // pipeline widget will bug out if this is done.
+        // This is where the stage name that shows up in the Jenkins GUI pipeline widget is
+        // actually set.  Stage names should be unique.  It is possible to give multiple stages
+        // the same name but the Jenkins GUI pipeline widget will bug out if this is done.
         wfc.stage(name)
         {
             wfc.echo 'Starting stage ' + name
 
-            // We don't use only the return code from the stage to determine
-            // stage success.  Jenkins tools like the Cppcheck publisher and
-            // Valgrind publisher fail or unstable builds in a way that shows up
-            // in "currentBuild.result".  They might do this if they're
-            // configured to fail or unstable builds that were unacceptable to
-            // them in some way (for example, too many static analysis issues
-            // detected).  The "checkForFailure" function is designed to look
-            // for all the different ways a stage can fail and then do the right
-            // thing when any of those ways happen.
+            // We don't use only the return code from the stage to determine stage success.
+            // Jenkins tools like the Cppcheck publisher and Valgrind publisher fail or
+            // unstable builds in a way that shows up in "currentBuild.result".  They might do
+            // this if they're configured to fail or unstable builds that were unacceptable to
+            // them in some way (for example, too many static analysis issues detected).  The
+            // "checkForFailure" function is designed to look for all the different ways a
+            // stage can fail and then do the right thing when any of those ways happen.
 
             wfc.gitlabCommitStatus(
                 connection: wfc.gitLabConnection('gitlab.dmz'),
                 name:       name)
             {
-                // It's at this point where we introduce parallelization.
-                // Besides this "parallel" construct the whole pipeline runs
-                // serially.  This stage runs on all supported platforms in
-                // parallel here.
+                // It's at this point where we introduce parallelization.  Besides this
+                // "parallel" construct the whole pipeline runs serially.  This stage runs on
+                // all supported platforms in parallel here.
 
-                // Annoyingly, when failing stages with the "error" function, it
-                // seems necessary to do it inside the parallel construct.  This
-                // means we have to check for failure in each branch of the
-                // parallel construct, rather than once outside the construct.
-                // This is why "checkForFailure()" exists.  "error()" outside
-                // the parallel construct does stop the pipeline, but it doesn't
-                // display the "failed" stage graphic with the red border in the
-                // pipeline GUI, and I want that.
+                // Annoyingly, when failing stages with the "error" function, it seems
+                // necessary to do it inside the parallel construct.  This means we have to
+                // check for failure in each branch of the parallel construct, rather than once
+                // outside the construct.  This is why "checkForFailure()" exists.  "error()"
+                // outside the parallel construct does stop the pipeline, but it doesn't
+                // display the "failed" stage graphic with the red border in the pipeline GUI,
+                // and I want that.
 
-                // Would be nice if this parallel construct could be constructed
-                // dynamically somehow, we have to repeat a lot of content with
-                // it like this.
+                // Would be nice if this parallel construct could be constructed dynamically
+                // somehow, we have to repeat a lot of content with it like this.
 
                 wfc.parallel Linux: {
 
                     if (runOnLinux)
                     {
-                        // Run the Linux dimension of this stage on an available
-                        // Linux platform
+                        // Run the Linux dimension of this stage on an available Linux platform
                         wfc.node('Linux')
                         {
                             if (cleanWorkspace)
@@ -94,9 +87,8 @@ abstract class Stage
                                 wfc.cleanWs()
                             }
 
-                            // runLinux() is where the Linux-specific bit of
-                            // this stage runs.  checkForFailure() fails the
-                            // stage if anything went wrong.
+                            // runLinux() is where the Linux-specific bit of this stage runs.
+                            // checkForFailure() fails the stage if anything went wrong.
                             checkForFailure(wfc, !runLinux())
                         }
                     }
@@ -105,8 +97,8 @@ abstract class Stage
 
                     if (runOnWindows)
                     {
-                        // Run the Windows dimension of this stage on an
-                        // available Windows platform
+                        // Run the Windows dimension of this stage on an available Windows
+                        // platform
                         wfc.node('Windows')
                         {
                             if (cleanWorkspace)
@@ -114,17 +106,16 @@ abstract class Stage
                                 wfc.cleanWs()
                             }
 
-                            // runWindows() is where the Windows-specific bit of
-                            // this stage runs.  checkForFailure() fails the
-                            // stage if anything went wrong.
+                            // runWindows() is where the Windows-specific bit of this stage
+                            // runs.  checkForFailure() fails the stage if anything went wrong.
                             checkForFailure(wfc, !runWindows())
                         }
                     }
 
                 }, failFast: false
 
-                // If other platforms were supported they would be added after
-                // the Windows bracket in their own bracket, before the failFast
+                // If other platforms were supported they would be added after the Windows
+                // bracket in their own bracket, before the failFast
             }
 
             wfc.echo 'Stage ' + name + ' complete'
